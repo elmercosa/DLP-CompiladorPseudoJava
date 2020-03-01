@@ -1,0 +1,69 @@
+' Pedir 3 reales e imprimir el menor
+
+'leer 3
+pusha 0
+inf
+storef
+
+pusha 4
+inf
+storef
+
+pusha 8
+inf
+storef
+
+pusha 0
+loadf
+
+pusha 4
+loadf
+
+lef
+jz condicion_uno '(a no es menor que b)
+pusha 0
+loadf
+
+pusha 8
+loadf
+
+lef
+jz imprimir_a
+pusha 8
+loadf
+outf
+jmp fin
+
+
+condicion_uno:
+    pusha 4
+    loadf
+
+    pusha 8
+    loadf
+
+    lef
+    jz imprimir_b
+
+    pusha 8
+    loadf
+    outf
+    jmp fin
+
+
+imprimir_a:
+    pusha 0
+    loadf
+    outf
+    jmp fin
+
+imprimir_b:
+    pusha 4
+    loadf
+    outf
+    jmp fin
+
+
+fin:
+
+

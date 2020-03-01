@@ -1,0 +1,23 @@
+'int ladoA, ladoB
+'read ladoA
+'read ladoB
+'print(ladoA + ladoB)*2
+
+pusha 0
+in
+store
+
+pusha 2
+in
+store
+
+pusha 0 
+load
+
+pusha 2
+load
+
+addi
+push 2
+mul
+out

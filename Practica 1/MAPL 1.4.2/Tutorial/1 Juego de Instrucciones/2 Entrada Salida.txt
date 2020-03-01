@@ -1,0 +1,51 @@
+' Instrucciones:
+' - F7 para ejecutar una
+'   instrucci�n.
+' - F6 para retroceder.
+
+
+'-----------------------------------------
+' Instrucciones de E/S
+
+
+' 1) Instrucciones de Salida
+
+push 99
+out		' Escribir entero
+
+pushf 3.14
+outf		' Escribir real
+
+pushb 97	' Letra 'a'
+outb
+
+pushb 10	' Car�cter '\n'
+outb		' Env�a salto de linea
+
+pushb 42	' Car�cter '*'
+outb
+
+pushb 99	' Letra 'c'
+outb
+
+pushb 10	' Car�cter '\n'
+outb		' Env�a salto de linea
+
+pushf 3.14
+outf		' Escribir real
+
+
+
+' 2) Instrucciones de entrada
+
+in	' Leer entero u dejarlo en la pila
+inf	' Leer float 
+inb	' Leer byte
+
+outb
+outf
+out
+
+
+halt
+

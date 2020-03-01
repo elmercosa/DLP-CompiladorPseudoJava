@@ -1,0 +1,17 @@
+'println "Raul"
+'print "Hola"
+
+pushb 82
+pushb 97
+pushb 117
+pushb 108
+outb 
+
+pushb 10
+outb		
+
+pushb 72
+pushb 111
+pushb 117
+pushb 108
+outb

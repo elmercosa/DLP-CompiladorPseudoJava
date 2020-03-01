@@ -1,0 +1,25 @@
+' int a
+' read a
+'if( a < 10){
+' print 0
+'}
+'print a
+'
+pusha 0
+in
+store
+pusha 0
+load
+push 10
+lti
+jz condicion
+pusha 0
+load
+out
+
+
+condicion:
+   push 0
+    out
+
+

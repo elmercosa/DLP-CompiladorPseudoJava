@@ -1,0 +1,46 @@
+CATEGORIES
+expresion, sentencia , tipo, tipoSimple, tipoCompuesto
+
+NODES
+
+
+//regla de secuencia -> secuencias a parte
+
+//Tipo
+int:tipoSimple -> ;
+float:tipoSimple -> ;
+char: tipoSimple->;
+class: tipoSimple->name:string;
+array: tipoCompuesto->name:string;
+
+
+//Expr
+arithmeticExpression:expression -> left:expression operator:string right:expression;
+callFunc:expression -> name:string params:defvar*;
+variable:expression -> name:string;
+intConstant:expression -> value:string;
+realConstant:expression -> value:string;
+charConstant:expression -> value:string;
+
+//Sentences
+ifelse: sentence -> condition:expr if:sentence* else:sentence*;
+while: sentence -> condition:expr body:sentence*;
+print: sentence -> expression;
+
+//Defs
+varDefinition -> name:string type;
+funcDefinition -> name:string params:defvar body:sentence*
+structDefinition -> name:string body:sentence*
+
+
+program -> definitions:varDefinition* sentences:sentence*;
+
+
+
+intType:type -> ;
+realType:type -> ;
+
+print:sentence -> expression;
+assignment:sentence -> left:expression right:expression;
+
+
