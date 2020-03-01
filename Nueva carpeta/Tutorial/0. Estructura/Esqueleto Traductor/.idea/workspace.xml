@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="12681338-b72e-4f6c-9fc1-8f59803dca90" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="12681338-b72e-4f6c-9fc1-8f59803dca90" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vgen/VGen.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vgen/VGenANTLR4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vgen/gramaticaAbstracta.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gramaticaAbstracta/gramaticaAbstracta.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/Grammar.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/Grammar.g4" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,8 +22,18 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
   <component name="ProjectId" id="1XwHAA7cUcauxOStBiDP66JKijw" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -40,18 +57,6 @@
       <recent name="C:\Users\Elmer\Documents\DLP\Nueva carpeta\Tutorial\0. Estructura\Esqueleto Traductor" />
       <recent name="C:\Users\Elmer\Documents\DLP\Nueva carpeta\Tutorial\0. Estructura\Esqueleto Traductor\src" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Application.Test">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -118,10 +123,36 @@
       <workItem from="1582875991451" duration="1014000" />
       <workItem from="1582877222970" duration="1086000" />
       <workItem from="1582879389967" duration="4310000" />
+      <workItem from="1583082725370" duration="69000" />
+      <workItem from="1583083206273" duration="63000" />
+      <workItem from="1583083292413" duration="4036000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="379" y="193" key="com.intellij.ide.util.TipDialog" timestamp="1583083295053">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="379" y="193" key="com.intellij.ide.util.TipDialog/0.0.1366.738/-1360.0.1360.738@0.0.1366.738" timestamp="1583083295053" />
+    <state x="452" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1583085420658">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="452" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.738/-1360.0.1360.738@0.0.1366.738" timestamp="1583085420658" />
   </component>
 </project>

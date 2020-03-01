@@ -1,0 +1,46 @@
+CATEGORIES
+expression, sentence , type, printer
+
+NODES
+
+//Tipo
+entero:type -> ;
+real:type -> ;
+caracter: type->;
+class: type->name:string;
+array: type->name:string type:type;
+
+//Prints
+print: printer -> expression;
+printsp: printer -> expression;
+println: printer -> expression;
+
+//Expr
+exprBin:expression -> left:expression operator:string right:expression;
+invoca:expression -> name:string params:expression*;
+var:expression -> name:string;
+litEnt:expression -> value:string;
+litReal:expression -> value:string;
+litChar:expression -> value:string;
+negacion:expression -> expr:expression;
+cast:expression -> to:type from:expression;
+iarray:expression -> name:string index:expression;
+structField:expression -> name:string field:string;
+
+//Sentences
+ifelse: sentence -> condition:expression sentence* els:sentence*;
+while: sentence -> condition:expression body:sentence*;
+write: sentence -> type:printer;
+read: sentence -> expr:expression;
+assignment : sentence -> var:expression value:expression;
+
+//Defs
+varDefinition:sentence -> name:string type:type ;
+funcDefinition:sentence -> name:string params:varDefinition body:sentence* ret:expression;
+structDefinition:sentence -> name:string fields:varDefinition*;
+
+
+program -> definitions:varDefinition* sentences:sentence*;
+
+
+
