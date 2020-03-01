@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="12681338-b72e-4f6c-9fc1-8f59803dca90" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vgen/VGen.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vgen/VGenANTLR4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vgen/gramaticaAbstracta.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gramaticaAbstracta/gramaticaAbstracta.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/parser/Grammar.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/Grammar.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vgen/gramaticaAbstracta.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vgen/gramaticaAbstracta.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,12 +46,13 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Elmer\Documents\DLP\Nueva carpeta\Tutorial\0. Estructura\Esqueleto Traductor" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Elmer\Documents\DLP\Nueva carpeta\Tutorial\0. Estructura\Esqueleto Traductor" />
       <recent name="C:\Users\Elmer\Documents\DLP\Nueva carpeta\Tutorial\0. Estructura\Esqueleto Traductor\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Elmer\Documents\DLP\Nueva carpeta\Tutorial\0. Estructura\Esqueleto Traductor\src" />
+      <recent name="C:\Users\Elmer\Documents\DLP\Nueva carpeta\Tutorial\0. Estructura\Esqueleto Traductor" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Test">
@@ -125,7 +122,7 @@
       <workItem from="1582879389967" duration="4310000" />
       <workItem from="1583082725370" duration="69000" />
       <workItem from="1583083206273" duration="63000" />
-      <workItem from="1583083292413" duration="4036000" />
+      <workItem from="1583083292413" duration="5581000" />
     </task>
     <servers />
   </component>

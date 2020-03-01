@@ -16,7 +16,9 @@ printsp: printer -> expression;
 println: printer -> expression;
 
 //Expr
-exprBin:expression -> left:expression operator:string right:expression;
+aritmetica:expression -> left:expression operator:string right:expression;
+comparacion:expression -> left:expression operator:string right:expression;
+logica:expression -> left:expression operator:string right:expression;
 invoca:expression -> name:string params:expression*;
 var:expression -> name:string;
 litEnt:expression -> value:string;

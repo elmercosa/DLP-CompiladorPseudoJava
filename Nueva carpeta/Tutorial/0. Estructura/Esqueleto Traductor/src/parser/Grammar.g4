@@ -42,19 +42,21 @@ sentence
     | IDENT '(' parameter ')' (':' tipo) ? '{' sentence* 'return' expr? ';' '}'
 	;
 
-expr
-	: '(' expr ')'
-	| expr ('*' | '/') expr
-	| expr ('+' | '-') expr
-	| expr ('>' | '>=' | '<' | '<=' | '==' | '!=') expr
-	| expr ('&&' | '||') expr
-	| '!' expr
-	| 'cast' '<' tipo '>' '(' expr ')'
-    | IDENT '(' expr (',' expr)* ')' ';'?
+expressions return[List<Expression>]
+
+expr returns[Expression ast]
+	: '(' expr ')' { $ast = $expr.ast; }
+	| expr ('*' | '/') expr { $ast = new Aritmetica($ctx.expr(0).ast, $op.text, $ctx.expr(1).ast); }
+	| expr ('+' | '-') expr { $ast = new Aritmetica($ctx.expr(0).ast, $op.text, $ctx.expr(1).ast); }
+	| expr ('>' | '>=' | '<' | '<=' | '==' | '!=') expr { $ast = new Comparacion($ctx.expr(0).ast, $op.text, $ctx.expr(1).ast); }
+	| expr ('&&' | '||') expr { $ast = new Logica($ctx.expr(0).ast, $op.text, $ctx.expr(1).ast); }
+	| '!' expr { $ast = new Negacion($expr.ast); }
+	| 'cast' '<' tipo '>' '(' expr ')' { $ast = new Cast($tipo.ast,$expr.ast); }
+    | IDENT '(' expr (',' expr)* ')' ';'? { $ast = new Invoca($tipo.ast,$expr.ast); }
     | expr ('[' expr ']')+
 	| expr '.' IDENT
-	| IDENT
-    | INT_CONSTANT+
-    | REAL_CONSTANT
-    | CHAR_CONSTANT
+	| IDENT { $ast = new Var($IDENT.text); }
+    | INT_CONSTANT+ { $ast = new Entero($INT_CONSTANT.text); }
+    | REAL_CONSTANT { $ast = new Real($REAL_CONSTANT.text); }
+    | CHAR_CONSTANT { $ast = new Caracter($CHAR_CONSTANT.text); }
 	;
