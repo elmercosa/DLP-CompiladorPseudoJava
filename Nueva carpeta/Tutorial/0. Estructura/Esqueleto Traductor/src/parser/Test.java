@@ -7,7 +7,7 @@ public class Test {
 
     public static void main(String[] args) throws Exception {
 
-        CharStream input = CharStreams.fromFileName("Ejemplo.txt");
+        CharStream input = CharStreams.fromFileName("ejemplo.txt");
         GrammarLexer textLexer = new GrammarLexer(input);
         Token token;
         while ((token = textLexer.nextToken()).getType() != GrammarLexer.EOF) {

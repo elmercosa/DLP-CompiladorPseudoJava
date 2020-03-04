@@ -9,9 +9,9 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	invoca:expression -> name:String  params:expression*
+//	invoca:expression, sentence -> name:String  params:expression*
 
-public class Invoca extends AbstractExpression {
+public class Invoca extends AbstractAST implements Expression, Sentence {
 
 	public Invoca(String name, List<Expression> params) {
 		this.name = name;

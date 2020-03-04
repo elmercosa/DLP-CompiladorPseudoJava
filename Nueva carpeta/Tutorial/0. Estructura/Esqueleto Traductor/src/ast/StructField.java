@@ -8,17 +8,21 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	structField:expression -> name:String  field:String
+//	structField:expression -> name:expression  field:String
 
 public class StructField extends AbstractExpression {
 
-	public StructField(String name, String field) {
+	public StructField(Expression name, String field) {
 		this.name = name;
 		this.field = field;
+
+       // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
+       // Obtiene la linea/columna a partir de las de los hijos.
+       setPositions(name);
 	}
 
 	public StructField(Object name, Object field) {
-		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
+		this.name = (Expression) getAST(name);
 		this.field = (field instanceof Token) ? ((Token)field).getText() : (String) field;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
@@ -26,10 +30,10 @@ public class StructField extends AbstractExpression {
        setPositions(name, field);
 	}
 
-	public String getName() {
+	public Expression getName() {
 		return name;
 	}
-	public void setName(String name) {
+	public void setName(Expression name) {
 		this.name = name;
 	}
 
@@ -45,7 +49,7 @@ public class StructField extends AbstractExpression {
 		return v.visit(this, param);
 	}
 
-	private String name;
+	private Expression name;
 	private String field;
 
 	public String toString() {

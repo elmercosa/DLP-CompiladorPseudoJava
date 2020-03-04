@@ -8,40 +8,40 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	array:type -> name:String  type:type
+//	array:type -> tipo:type  dimension:String
 
 public class Array extends AbstractType {
 
-	public Array(String name, Type type) {
-		this.name = name;
-		this.type = type;
+	public Array(Type tipo, String dimension) {
+		this.tipo = tipo;
+		this.dimension = dimension;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(type);
+       setPositions(tipo);
 	}
 
-	public Array(Object name, Object type) {
-		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
-		this.type = (Type) getAST(type);
+	public Array(Object tipo, Object dimension) {
+		this.tipo = (Type) getAST(tipo);
+		this.dimension = (dimension instanceof Token) ? ((Token)dimension).getText() : (String) dimension;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(name, type);
+       setPositions(tipo, dimension);
 	}
 
-	public String getName() {
-		return name;
+	public Type getTipo() {
+		return tipo;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setTipo(Type tipo) {
+		this.tipo = tipo;
 	}
 
-	public Type getType() {
-		return type;
+	public String getDimension() {
+		return dimension;
 	}
-	public void setType(Type type) {
-		this.type = type;
+	public void setDimension(String dimension) {
+		this.dimension = dimension;
 	}
 
 	@Override
@@ -49,10 +49,10 @@ public class Array extends AbstractType {
 		return v.visit(this, param);
 	}
 
-	private String name;
-	private Type type;
+	private Type tipo;
+	private String dimension;
 
 	public String toString() {
-       return "{name:" + getName() + ", type:" + getType() + "}";
+       return "{tipo:" + getTipo() + ", dimension:" + getDimension() + "}";
    }
 }

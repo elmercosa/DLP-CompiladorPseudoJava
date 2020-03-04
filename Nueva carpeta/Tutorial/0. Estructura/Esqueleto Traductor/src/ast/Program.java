@@ -7,40 +7,31 @@ package ast;
 import java.util.*;
 import visitor.*;
 
-//	program -> definitions:varDefinition*  sentences:sentence*
+//	program -> sentence:sentence*
 
 public class Program extends AbstractAST  {
 
-	public Program(List<VarDefinition> definitions, List<Sentence> sentences) {
-		this.definitions = definitions;
-		this.sentences = sentences;
+	public Program(List<Sentence> sentence) {
+		this.sentence = sentence;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(definitions, sentences);
+       setPositions(sentence);
 	}
 
-	public Program(Object definitions, Object sentences) {
-		this.definitions = this.<VarDefinition>getAstFromContexts(definitions);
-		this.sentences = this.<Sentence>getAstFromContexts(sentences);
+	public Program(Object sentence) {
+		this.sentence = this.<Sentence>getAstFromContexts(sentence);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(definitions, sentences);
+       setPositions(sentence);
 	}
 
-	public List<VarDefinition> getDefinitions() {
-		return definitions;
+	public List<Sentence> getSentence() {
+		return sentence;
 	}
-	public void setDefinitions(List<VarDefinition> definitions) {
-		this.definitions = definitions;
-	}
-
-	public List<Sentence> getSentences() {
-		return sentences;
-	}
-	public void setSentences(List<Sentence> sentences) {
-		this.sentences = sentences;
+	public void setSentence(List<Sentence> sentence) {
+		this.sentence = sentence;
 	}
 
 	@Override
@@ -48,10 +39,9 @@ public class Program extends AbstractAST  {
 		return v.visit(this, param);
 	}
 
-	private List<VarDefinition> definitions;
-	private List<Sentence> sentences;
+	private List<Sentence> sentence;
 
 	public String toString() {
-       return "{definitions:" + getDefinitions() + ", sentences:" + getSentences() + "}";
+       return "{sentence:" + getSentence() + "}";
    }
 }

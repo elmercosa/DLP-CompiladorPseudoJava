@@ -8,21 +8,21 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	iarray:expression -> name:String  index:expression
+//	iarray:expression -> name:expression  index:expression
 
 public class Iarray extends AbstractExpression {
 
-	public Iarray(String name, Expression index) {
+	public Iarray(Expression name, Expression index) {
 		this.name = name;
 		this.index = index;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(index);
+       setPositions(name, index);
 	}
 
 	public Iarray(Object name, Object index) {
-		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
+		this.name = (Expression) getAST(name);
 		this.index = (Expression) getAST(index);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
@@ -30,10 +30,10 @@ public class Iarray extends AbstractExpression {
        setPositions(name, index);
 	}
 
-	public String getName() {
+	public Expression getName() {
 		return name;
 	}
-	public void setName(String name) {
+	public void setName(Expression name) {
 		this.name = name;
 	}
 
@@ -49,7 +49,7 @@ public class Iarray extends AbstractExpression {
 		return v.visit(this, param);
 	}
 
-	private String name;
+	private Expression name;
 	private Expression index;
 
 	public String toString() {

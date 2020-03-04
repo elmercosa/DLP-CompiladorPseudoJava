@@ -8,26 +8,26 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	varDefinition:sentence -> name:String  type:type
+//	varDefinition:sentence -> name:String  tipo:type
 
 public class VarDefinition extends AbstractSentence {
 
-	public VarDefinition(String name, Type type) {
+	public VarDefinition(String name, Type tipo) {
 		this.name = name;
-		this.type = type;
+		this.tipo = tipo;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(type);
+       setPositions(tipo);
 	}
 
-	public VarDefinition(Object name, Object type) {
+	public VarDefinition(Object name, Object tipo) {
 		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
-		this.type = (Type) getAST(type);
+		this.tipo = (Type) getAST(tipo);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(name, type);
+       setPositions(name, tipo);
 	}
 
 	public String getName() {
@@ -37,11 +37,11 @@ public class VarDefinition extends AbstractSentence {
 		this.name = name;
 	}
 
-	public Type getType() {
-		return type;
+	public Type getTipo() {
+		return tipo;
 	}
-	public void setType(Type type) {
-		this.type = type;
+	public void setTipo(Type tipo) {
+		this.tipo = tipo;
 	}
 
 	@Override
@@ -50,9 +50,9 @@ public class VarDefinition extends AbstractSentence {
 	}
 
 	private String name;
-	private Type type;
+	private Type tipo;
 
 	public String toString() {
-       return "{name:" + getName() + ", type:" + getType() + "}";
+       return "{name:" + getName() + ", tipo:" + getTipo() + "}";
    }
 }

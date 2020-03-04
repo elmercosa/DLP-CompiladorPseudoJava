@@ -19,6 +19,10 @@ CHAR_CONSTANT
     ;
 
 LINE_COMMENT
+	: ('// ' | '////') .*? '\n' -> skip
+	;
+
+L_COMMENT
 	: '//' .*? '\n' -> skip
 	;
 

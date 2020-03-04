@@ -9,30 +9,30 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	funcDefinition:sentence -> name:String  params:varDefinition  body:sentence*  ret:expression
+//	funcDefinition:sentence -> name:String  params:varDefinition*  retType:type  body:sentence*
 
 public class FuncDefinition extends AbstractSentence {
 
-	public FuncDefinition(String name, VarDefinition params, List<Sentence> body, Expression ret) {
+	public FuncDefinition(String name, List<VarDefinition> params, Type retType, List<Sentence> body) {
 		this.name = name;
 		this.params = params;
+		this.retType = retType;
 		this.body = body;
-		this.ret = ret;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(params, body, ret);
+       setPositions(params, retType, body);
 	}
 
-	public FuncDefinition(Object name, Object params, Object body, Object ret) {
+	public FuncDefinition(Object name, Object params, Object retType, Object body) {
 		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
-		this.params = (VarDefinition) getAST(params);
+		this.params = this.<VarDefinition>getAstFromContexts(params);
+		this.retType = (Type) getAST(retType);
 		this.body = this.<Sentence>getAstFromContexts(body);
-		this.ret = (Expression) getAST(ret);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(name, params, body, ret);
+       setPositions(name, params, retType, body);
 	}
 
 	public String getName() {
@@ -42,11 +42,18 @@ public class FuncDefinition extends AbstractSentence {
 		this.name = name;
 	}
 
-	public VarDefinition getParams() {
+	public List<VarDefinition> getParams() {
 		return params;
 	}
-	public void setParams(VarDefinition params) {
+	public void setParams(List<VarDefinition> params) {
 		this.params = params;
+	}
+
+	public Type getRetType() {
+		return retType;
+	}
+	public void setRetType(Type retType) {
+		this.retType = retType;
 	}
 
 	public List<Sentence> getBody() {
@@ -56,24 +63,17 @@ public class FuncDefinition extends AbstractSentence {
 		this.body = body;
 	}
 
-	public Expression getRet() {
-		return ret;
-	}
-	public void setRet(Expression ret) {
-		this.ret = ret;
-	}
-
 	@Override
 	public Object accept(Visitor v, Object param) { 
 		return v.visit(this, param);
 	}
 
 	private String name;
-	private VarDefinition params;
+	private List<VarDefinition> params;
+	private Type retType;
 	private List<Sentence> body;
-	private Expression ret;
 
 	public String toString() {
-       return "{name:" + getName() + ", params:" + getParams() + ", body:" + getBody() + ", ret:" + getRet() + "}";
+       return "{name:" + getName() + ", params:" + getParams() + ", retType:" + getRetType() + ", body:" + getBody() + "}";
    }
 }

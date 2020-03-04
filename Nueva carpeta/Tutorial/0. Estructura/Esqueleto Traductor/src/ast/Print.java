@@ -8,11 +8,12 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	print:printer -> expression:expression
+//	print:sentence -> tipo:String  expression:expression
 
-public class Print extends AbstractPrinter {
+public class Print extends AbstractSentence {
 
-	public Print(Expression expression) {
+	public Print(String tipo, Expression expression) {
+		this.tipo = tipo;
 		this.expression = expression;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
@@ -20,12 +21,20 @@ public class Print extends AbstractPrinter {
        setPositions(expression);
 	}
 
-	public Print(Object expression) {
+	public Print(Object tipo, Object expression) {
+		this.tipo = (tipo instanceof Token) ? ((Token)tipo).getText() : (String) tipo;
 		this.expression = (Expression) getAST(expression);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(expression);
+       setPositions(tipo, expression);
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public Expression getExpression() {
@@ -40,9 +49,10 @@ public class Print extends AbstractPrinter {
 		return v.visit(this, param);
 	}
 
+	private String tipo;
 	private Expression expression;
 
 	public String toString() {
-       return "{expression:" + getExpression() + "}";
+       return "{tipo:" + getTipo() + ", expression:" + getExpression() + "}";
    }
 }

@@ -2,9 +2,64 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="12681338-b72e-4f6c-9fc1-8f59803dca90" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/AST.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ejemplo2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/output.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ast/Aritmetica.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ast/Comparacion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ast/ReturnVoidExpression.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ast/VoidType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/ast/AST.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ast/AST.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/ast/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ast/Position.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/Grammar.g4" beforeDir="false" afterPath="$PROJECT_DIR$/bin/parser/Grammar.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/GrammarLexer.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/parser/GrammarLexer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/GrammarParser$Call_funcContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/GrammarParser$DefvarContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/GrammarParser$ExprContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/parser/GrammarParser$ExprContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/GrammarParser$ParameterContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/parser/GrammarParser$ParameterContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/GrammarParser$PrintContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/GrammarParser$SentenceContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/parser/GrammarParser$SentenceContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/GrammarParser$StartContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/GrammarParser$StructContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/parser/GrammarParser$StructContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/GrammarParser$TipoContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/GrammarParser$ValueContext.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/GrammarParser$VarContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/parser/GrammarParser$VarContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/GrammarParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/parser/GrammarParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/Lexicon.g4" beforeDir="false" afterPath="$PROJECT_DIR$/bin/parser/Lexicon.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/parser/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/parser/Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/visitor/ASTPrinter.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/visitor/ASTPrinter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/visitor/DefaultVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/visitor/DefaultVisitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/visitor/Visitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/visitor/Visitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/AbstractPrinter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/Array.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast/Array.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/Class.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast/Clase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/ExprBin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast/Logica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/FuncDefinition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast/FuncDefinition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/Iarray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast/Iarray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/Invoca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast/Invoca.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/Print.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast/Print.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/Printer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/Println.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast/Return.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/Printsp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast/Program.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/StructField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast/StructField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/VarDefinition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast/VarDefinition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast/Write.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/parser/Grammar.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/Grammar.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/GrammarLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/GrammarLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/GrammarParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/GrammarParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/Lexicon.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/Lexicon.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visitor/ASTPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visitor/ASTPrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visitor/DefaultVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visitor/DefaultVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visitor/Visitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visitor/Visitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visitor/_PlantillaParaVisitors.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/visitor/_PlantillaParaVisitors.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vgen/gramaticaAbstracta.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vgen/gramaticaAbstracta.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vgen/output/metalenguajes/Attribute Grammar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/metalenguajes/Attribute Grammar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vgen/output/metalenguajes/Code Specification.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/metalenguajes/Code Specification.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,13 +77,16 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
   </component>
   <component name="ProjectId" id="1XwHAA7cUcauxOStBiDP66JKijw" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -55,7 +113,7 @@
       <recent name="C:\Users\Elmer\Documents\DLP\Nueva carpeta\Tutorial\0. Estructura\Esqueleto Traductor" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Test">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.Main" />
       <module name="z" />
@@ -95,9 +153,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Test" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Batch.antlr" />
+        <item itemvalue="Application.Test" />
       </list>
     </recent_temporary>
   </component>
@@ -123,6 +180,9 @@
       <workItem from="1583082725370" duration="69000" />
       <workItem from="1583083206273" duration="63000" />
       <workItem from="1583083292413" duration="5581000" />
+      <workItem from="1583236216066" duration="3774000" />
+      <workItem from="1583319291814" duration="7388000" />
+      <workItem from="1583330515626" duration="9272000" />
     </task>
     <servers />
   </component>
@@ -142,14 +202,45 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="379" y="193" key="com.intellij.ide.util.TipDialog" timestamp="1583083295053">
+    <state x="413" y="116" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1583332218061">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="379" y="193" key="com.intellij.ide.util.TipDialog/0.0.1366.738/-1360.0.1360.738@0.0.1366.738" timestamp="1583083295053" />
+    <state x="413" y="116" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.738/-1360.0.1360.738@0.0.1366.738" timestamp="1583332218061" />
+    <state width="1323" height="205" key="GridCell.Tab.0.bottom" timestamp="1583339796257">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="205" key="GridCell.Tab.0.bottom/0.0.1366.738/-1360.0.1360.738@0.0.1366.738" timestamp="1583339796257" />
+    <state width="1323" height="205" key="GridCell.Tab.0.center" timestamp="1583339796257">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="205" key="GridCell.Tab.0.center/0.0.1366.738/-1360.0.1360.738@0.0.1366.738" timestamp="1583339796257" />
+    <state width="1323" height="205" key="GridCell.Tab.0.left" timestamp="1583339796257">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="205" key="GridCell.Tab.0.left/0.0.1366.738/-1360.0.1360.738@0.0.1366.738" timestamp="1583339796257" />
+    <state width="1323" height="205" key="GridCell.Tab.0.right" timestamp="1583339796257">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="205" key="GridCell.Tab.0.right/0.0.1366.738/-1360.0.1360.738@0.0.1366.738" timestamp="1583339796257" />
+    <state x="379" y="193" key="com.intellij.ide.util.TipDialog" timestamp="1583330514730">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="379" y="193" key="com.intellij.ide.util.TipDialog/0.0.1366.738/-1360.0.1360.738@0.0.1366.738" timestamp="1583330514730" />
     <state x="452" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1583085420658">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="452" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.738/-1360.0.1360.738@0.0.1366.738" timestamp="1583085420658" />
+    <state x="-1024" y="173" key="run.anything.popup" timestamp="1583331374479">
+      <screen x="-1360" y="0" width="1360" height="738" />
+    </state>
+    <state x="-1024" y="173" key="run.anything.popup/0.0.1366.738/-1360.0.1360.738@0.0.1366.738" timestamp="1583331374479" />
+    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup" timestamp="1583325545441">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup/0.0.1366.738/-1360.0.1360.738@0.0.1366.738" timestamp="1583325545441" />
   </component>
 </project>

@@ -27,7 +27,7 @@ import org.antlr.v4.runtime.*;
  * - Para Generación de Código: 'MemoryAllocation.java' y 'CodeSelection.java'.
  */
 public class Main {
-    public static final String program = "ejemplo.txt"; // Fichero de prueba durante el desarrollo
+    public static final String program = "Hipoteca.txt"; // Fichero de prueba durante el desarrollo
 
     public static void main(String[] args) throws Exception {
         ErrorManager errorManager = new ErrorManager();
@@ -51,8 +51,8 @@ public class Main {
         AST ast = null;
 
         // IMPORTANTE: Cuando se genere el AST, INTERCAMBIAR las dos líneas siguientes:
-        parser.start();
-        // ast = parser.start().ast;
+//        parser.program();
+        ast = parser.program().ast;
 
         if (parser.getNumberOfSyntaxErrors() > 0 || ast == null) { // Hay errores o el AST no se ha implementado aún
             errorManager.notify("El AST no ha sido creado.");
