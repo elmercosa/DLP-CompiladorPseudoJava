@@ -174,7 +174,7 @@ public class GrammarParser extends Parser {
 			((VarContext)_localctx).type = type();
 			setState(32);
 			match(T__2);
-			 ((VarContext)_localctx).ast =  new VarDefinition((((VarContext)_localctx).IDENT!=null?((VarContext)_localctx).IDENT.getText():null), ((VarContext)_localctx).type.ast); 
+			 ((VarContext)_localctx).ast =  new VarDefinition(((VarContext)_localctx).IDENT, ((VarContext)_localctx).type.ast); 
 			}
 		}
 		catch (RecognitionException re) {
@@ -220,7 +220,7 @@ public class GrammarParser extends Parser {
 			match(T__5);
 			setState(40);
 			match(T__2);
-			 ((StructContext)_localctx).ast =  new StructDefinition((((StructContext)_localctx).IDENT!=null?((StructContext)_localctx).IDENT.getText():null), ((StructContext)_localctx).fields.list); 
+			 ((StructContext)_localctx).ast =  new StructDefinition(((StructContext)_localctx).IDENT, ((StructContext)_localctx).fields.list); 
 			}
 		}
 		catch (RecognitionException re) {
@@ -275,7 +275,7 @@ public class GrammarParser extends Parser {
 				((FieldsContext)_localctx).type = type();
 				setState(46);
 				match(T__2);
-				 _localctx.list.add(new VarDefinition((((FieldsContext)_localctx).IDENT!=null?((FieldsContext)_localctx).IDENT.getText():null), ((FieldsContext)_localctx).type.ast)); 
+				 _localctx.list.add(new VarDefinition(((FieldsContext)_localctx).IDENT, ((FieldsContext)_localctx).type.ast)); 
 				}
 				}
 				setState(53);
@@ -331,7 +331,7 @@ public class GrammarParser extends Parser {
 				{
 				setState(56);
 				match(T__7);
-				 ((TypeContext)_localctx).ast =  new Entero(); 
+				 ((TypeContext)_localctx).ast =  new Entero();
 				}
 				break;
 			case T__8:
@@ -347,7 +347,7 @@ public class GrammarParser extends Parser {
 				{
 				setState(60);
 				((TypeContext)_localctx).IDENT = match(IDENT);
-				 ((TypeContext)_localctx).ast =  new Clase((((TypeContext)_localctx).IDENT!=null?((TypeContext)_localctx).IDENT.getText():null)); 
+				 ((TypeContext)_localctx).ast =  new Clase(((TypeContext)_localctx).IDENT); 
 				}
 				break;
 			case T__9:
@@ -361,7 +361,7 @@ public class GrammarParser extends Parser {
 				match(T__10);
 				setState(65);
 				((TypeContext)_localctx).type = type();
-				 ((TypeContext)_localctx).ast =  new Array(((TypeContext)_localctx).type.ast,(((TypeContext)_localctx).INT_CONSTANT!=null?((TypeContext)_localctx).INT_CONSTANT.getText():null)); 
+				 ((TypeContext)_localctx).ast =  new Array(((TypeContext)_localctx).type.ast,((TypeContext)_localctx).INT_CONSTANT); 
 				}
 				break;
 			default:
@@ -530,7 +530,7 @@ public class GrammarParser extends Parser {
 				match(T__1);
 				setState(93);
 				((ParameterContext)_localctx).type = type();
-				 _localctx.list.add(new VarDefinition((((ParameterContext)_localctx).IDENT!=null?((ParameterContext)_localctx).IDENT.getText():null), ((ParameterContext)_localctx).type.ast)); 
+				 _localctx.list.add(new VarDefinition(((ParameterContext)_localctx).IDENT, ((ParameterContext)_localctx).type.ast)); 
 				setState(103);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -545,7 +545,7 @@ public class GrammarParser extends Parser {
 					match(T__1);
 					setState(98);
 					((ParameterContext)_localctx).type = type();
-					 _localctx.list.add(new VarDefinition((((ParameterContext)_localctx).IDENT!=null?((ParameterContext)_localctx).IDENT.getText():null), ((ParameterContext)_localctx).type.ast)); 
+					 _localctx.list.add(new VarDefinition(((ParameterContext)_localctx).IDENT, ((ParameterContext)_localctx).type.ast)); 
 					}
 					}
 					setState(105);
@@ -659,7 +659,7 @@ public class GrammarParser extends Parser {
 				((SentenceContext)_localctx).expr = expr(0);
 				setState(116);
 				match(T__2);
-				 ((SentenceContext)_localctx).ast =  new Print((((SentenceContext)_localctx).op!=null?((SentenceContext)_localctx).op.getText():null), ((SentenceContext)_localctx).expr.ast); 
+				 ((SentenceContext)_localctx).ast =  new Print(((SentenceContext)_localctx).op, ((SentenceContext)_localctx).expr.ast); 
 				}
 				break;
 			case 4:
@@ -705,7 +705,7 @@ public class GrammarParser extends Parser {
 				((SentenceContext)_localctx).sentences = sentences();
 				setState(136);
 				match(T__5);
-				 ((SentenceContext)_localctx).ast =  new FuncDefinition((((SentenceContext)_localctx).IDENT!=null?((SentenceContext)_localctx).IDENT.getText():null), ((SentenceContext)_localctx).parameter.list, ((SentenceContext)_localctx).returnType.ast, ((SentenceContext)_localctx).sentences.list); 
+				 ((SentenceContext)_localctx).ast =  new FuncDefinition(((SentenceContext)_localctx).IDENT, ((SentenceContext)_localctx).parameter.list, ((SentenceContext)_localctx).returnType.ast, ((SentenceContext)_localctx).sentences.list); 
 				}
 				break;
 			case 7:
@@ -729,7 +729,7 @@ public class GrammarParser extends Parser {
 					}
 				}
 
-				 ((SentenceContext)_localctx).ast =  new Invoca((((SentenceContext)_localctx).IDENT!=null?((SentenceContext)_localctx).IDENT.getText():null),((SentenceContext)_localctx).expressions.list); 
+				 ((SentenceContext)_localctx).ast =  new Invoca(((SentenceContext)_localctx).IDENT,((SentenceContext)_localctx).expressions.list); 
 				}
 				break;
 			case 8:
@@ -743,7 +743,7 @@ public class GrammarParser extends Parser {
 				expr(0);
 				setState(151);
 				match(T__2);
-				 ((SentenceContext)_localctx).ast =  new Assignment(_localctx.expr(0).ast,_localctx.expr(1).ast); 
+				 ((SentenceContext)_localctx).ast =  new Assignment(_localctx.expr(0),_localctx.expr(1)); 
 				}
 				break;
 			case 9:
@@ -913,7 +913,7 @@ public class GrammarParser extends Parser {
 			case T__2:
 				enterOuterAlt(_localctx, 2);
 				{
-				 ((ReturnExpressionContext)_localctx).ast =  new ReturnVoidExpression();
+				 ((ReturnExpressionContext)_localctx).ast =  new ReturnVoidExpression(); 
 				}
 				break;
 			default:
@@ -1016,7 +1016,7 @@ public class GrammarParser extends Parser {
 					}
 					break;
 				}
-				 ((ExprContext)_localctx).ast =  new Invoca((((ExprContext)_localctx).IDENT!=null?((ExprContext)_localctx).IDENT.getText():null),((ExprContext)_localctx).expressions.list); 
+				 ((ExprContext)_localctx).ast =  new Invoca(((ExprContext)_localctx).IDENT,((ExprContext)_localctx).expressions.list); 
 				}
 				break;
 			case 3:
@@ -1051,7 +1051,7 @@ public class GrammarParser extends Parser {
 				{
 				setState(228);
 				((ExprContext)_localctx).IDENT = match(IDENT);
-				 ((ExprContext)_localctx).ast =  new Var((((ExprContext)_localctx).IDENT!=null?((ExprContext)_localctx).IDENT.getText():null)); 
+				 ((ExprContext)_localctx).ast =  new Var(((ExprContext)_localctx).IDENT); 
 				}
 				break;
 			case 6:
@@ -1076,21 +1076,21 @@ public class GrammarParser extends Parser {
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
-				 ((ExprContext)_localctx).ast =  new LitEnt((((ExprContext)_localctx).INT_CONSTANT!=null?((ExprContext)_localctx).INT_CONSTANT.getText():null)); 
+				 ((ExprContext)_localctx).ast =  new LitEnt(((ExprContext)_localctx).INT_CONSTANT); 
 				}
 				break;
 			case 7:
 				{
 				setState(236);
 				((ExprContext)_localctx).REAL_CONSTANT = match(REAL_CONSTANT);
-				 ((ExprContext)_localctx).ast =  new LitReal((((ExprContext)_localctx).REAL_CONSTANT!=null?((ExprContext)_localctx).REAL_CONSTANT.getText():null)); 
+				 ((ExprContext)_localctx).ast =  new LitReal(((ExprContext)_localctx).REAL_CONSTANT); 
 				}
 				break;
 			case 8:
 				{
 				setState(238);
 				((ExprContext)_localctx).CHAR_CONSTANT = match(CHAR_CONSTANT);
-				 ((ExprContext)_localctx).ast =  new LitChar((((ExprContext)_localctx).CHAR_CONSTANT!=null?((ExprContext)_localctx).CHAR_CONSTANT.getText():null)); 
+				 ((ExprContext)_localctx).ast =  new LitChar(((ExprContext)_localctx).CHAR_CONSTANT); 
 				}
 				break;
 			}
@@ -1125,7 +1125,7 @@ public class GrammarParser extends Parser {
 						}
 						setState(244);
 						((ExprContext)_localctx).expr = expr(13);
-						 ((ExprContext)_localctx).ast =  new Aritmetica(_localctx.expr(0).ast, (((ExprContext)_localctx).op!=null?((ExprContext)_localctx).op.getText():null), _localctx.expr(1).ast); 
+						 ((ExprContext)_localctx).ast =  new Aritmetica(_localctx.expr(0), ((ExprContext)_localctx).op, _localctx.expr(1)); 
 						}
 						break;
 					case 2:
@@ -1147,7 +1147,7 @@ public class GrammarParser extends Parser {
 						}
 						setState(249);
 						((ExprContext)_localctx).expr = expr(12);
-						 ((ExprContext)_localctx).ast =  new Aritmetica(_localctx.expr(0).ast, (((ExprContext)_localctx).op!=null?((ExprContext)_localctx).op.getText():null), _localctx.expr(1).ast); 
+						 ((ExprContext)_localctx).ast =  new Aritmetica(_localctx.expr(0), ((ExprContext)_localctx).op, _localctx.expr(1)); 
 						}
 						break;
 					case 3:
@@ -1169,7 +1169,7 @@ public class GrammarParser extends Parser {
 						}
 						setState(254);
 						((ExprContext)_localctx).expr = expr(11);
-						 ((ExprContext)_localctx).ast =  new Comparacion(_localctx.expr(0).ast, (((ExprContext)_localctx).op!=null?((ExprContext)_localctx).op.getText():null), _localctx.expr(1).ast); 
+						 ((ExprContext)_localctx).ast =  new Comparacion(_localctx.expr(0), ((ExprContext)_localctx).op, _localctx.expr(1)); 
 						}
 						break;
 					case 4:
@@ -1191,7 +1191,7 @@ public class GrammarParser extends Parser {
 						}
 						setState(259);
 						((ExprContext)_localctx).expr = expr(10);
-						 ((ExprContext)_localctx).ast =  new Logica(_localctx.expr(0).ast, (((ExprContext)_localctx).op!=null?((ExprContext)_localctx).op.getText():null), _localctx.expr(1).ast); 
+						 ((ExprContext)_localctx).ast =  new Logica(_localctx.expr(0), ((ExprContext)_localctx).op, _localctx.expr(1)); 
 						}
 						break;
 					case 5:
@@ -1224,7 +1224,7 @@ public class GrammarParser extends Parser {
 							_errHandler.sync(this);
 							_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
 						} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
-						 ((ExprContext)_localctx).ast =  new Iarray(_localctx.expr(0).ast, _localctx.expr(1).ast); 
+						 ((ExprContext)_localctx).ast =  new Iarray(_localctx.expr(0), _localctx.expr(1)); 
 						}
 						break;
 					case 6:
@@ -1237,7 +1237,7 @@ public class GrammarParser extends Parser {
 						match(T__37);
 						setState(275);
 						((ExprContext)_localctx).IDENT = match(IDENT);
-						 ((ExprContext)_localctx).ast =  new StructField(_localctx.expr(0).ast, (((ExprContext)_localctx).IDENT!=null?((ExprContext)_localctx).IDENT.getText():null)); 
+						 ((ExprContext)_localctx).ast =  new StructField(_localctx.expr(0), ((ExprContext)_localctx).IDENT); 
 						}
 						break;
 					}
