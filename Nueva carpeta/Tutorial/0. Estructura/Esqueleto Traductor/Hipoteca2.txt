@@ -1,1 +1,0 @@
-var vector:[10][5] int;

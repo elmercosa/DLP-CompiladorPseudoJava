@@ -1,0 +1,43 @@
+CATEGORIES
+expression, sentence , type, def
+
+NODES
+program -> def*;
+
+entero:type -> ;
+real:type -> ;
+caracter: type->;
+clase: type->name:string;
+array: type->tipo:type dimension:string;
+voidType: type -> ;
+
+aritmetica:expression -> left:expression operator:string right:expression;
+comparacion:expression -> left:expression operator:string right:expression;
+logica:expression -> left:expression operator:string right:expression;
+invoca:expression,sentence -> name:string params:expression*;
+var:expression -> name:string;
+litEnt:expression -> value:string;
+litReal:expression -> value:string;
+litChar:expression -> value:string;
+negacion:expression -> expr:expression;
+cast:expression -> to:type from:expression;
+iarray:expression -> name:expression index:expression;
+structField:expression -> name:expression field:string;
+
+ifelse: sentence -> condition:expression sentence* els:sentence*;
+while: sentence -> condition:expression body:sentence*;
+print: sentence -> tipo:string expression;
+read: sentence -> expr:expression;
+assignment : sentence -> var:expression value:expression;
+return: sentence -> expression;
+
+returnVoidExpression: expression ->;
+
+
+varDefinition:def -> name:string tipo:type scope:string;
+structFieldDefinition:def -> name:string tipo:type ;
+funcDefinition:def -> name:string params:varDefinition* retType:type vars:varDefinition* body:sentence* ;
+structDefinition:def -> name:string fields:structFieldDefinition*;
+
+
+

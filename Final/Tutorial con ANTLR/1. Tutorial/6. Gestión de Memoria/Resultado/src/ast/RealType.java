@@ -22,4 +22,15 @@ public class RealType extends AbstractType {
     public String toString() {
         return "{RealType}";
     }
+
+    @Override
+    public char getSuffix() {
+        return 'f';
+    }
+
+    @Override
+    public String getMAPLName() {
+        return "float";
+    }
+
 }

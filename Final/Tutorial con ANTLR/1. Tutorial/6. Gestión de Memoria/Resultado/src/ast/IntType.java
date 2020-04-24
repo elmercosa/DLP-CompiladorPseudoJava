@@ -22,4 +22,15 @@ public class IntType extends AbstractType {
     public String toString() {
         return "{IntType}";
     }
+
+    @Override
+    public String getMAPLName() {
+        return "int";
+    }
+
+    @Override
+    public char getSuffix() {
+        return 'i';
+    }
+
 }

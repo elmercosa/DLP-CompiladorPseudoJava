@@ -1,0 +1,151 @@
+run: Program -> Instruccion*
+    run[[Program -> defs:def*]]=
+        #SOURCE {file}
+        define[[defs]]
+
+define: defs -> Instruccion*
+    define[[funcDefinition -> name:string params:varDefinition* retType:type vars:varDefinition* body:sentence*]]=
+        ejecuta[[body]]
+
+    define[[varDefinition -> name:string tipo:type scope:String]]
+        si scope == "global"
+            #GLOBAL {name} : {tipo}
+    
+    define[[structDefinition -> name:string fields:structFieldDefinition*]]
+        # type {name} : {
+            define[[fields]]
+        }
+
+    define[[structFieldDefinition -> name:string tipo:type]]
+        {name} : {tipo}
+
+
+ejecuta: sentence -> Instruccion*
+    ejecuta[[assignment -> var:expression value:expression]]=
+        #LINE {end.line}
+        PUSHA {var.address}
+        valor[[value]]
+        STORE
+    ejecuta[[ print -> expression]]
+        #LINE {end.line}
+        valor[[expression]]
+        out <expression.tipo>
+    ejecuta[[ printsp -> expression]]
+        #LINE {end.line}
+        valor[[expression]]
+        out <expression.tipo>
+        PUSHB 32
+        OUTB
+    ejecuta[[ println -> expression]]
+        #LINE {end.line}
+        valor[[expression]]
+        out <expression.tipo>
+        PUSHB 10
+        OUTB
+
+
+valor: expr -> Instruccion
+    valor[[var -> name:string]]=
+        direccion[[name]]
+        LOAD <var.tipo>
+    valor[[litEnt -> value:string]]
+        PUSH {value}
+    valor[[litReal -> value:string]]
+        PUSH {value}
+    valor[[litChar -> value:string]]
+        PUSH {value}
+    valor[[aritmetica -> left:expression operator:string right:expression]]
+        valor[[left]]
+        valor[[right]]
+        si operator == "+"
+            ADD <aritmetica.tipo>
+        si operator == "-"
+            SUB <aritmetica.tipo>
+        si operator == "*"
+            MUL <aritmetica.tipo>
+        si operator == "/"
+            DIV <aritmetica.tipo>
+    valor[[comparacion -> left:expression operator:string right:expression]]
+        valor[[left]]
+        valor[[right]]
+        si operator == ">"
+            GT <comparacion.tipo>
+        si operator == ">="
+            GE <comparacion.tipo>
+        si operator == "<"
+            LT <comparacion.tipo>
+        si operator == "<="
+            LE <comparacion.tipo>
+        si operator == "=="
+            EQ <comparacion.tipo>
+        si operator == "!="
+            NE <comparacion.tipo>
+    valor[[logica -> left:expression operator:string right:expression]]
+        valor[[left]]
+        valor[[right]]
+        si operator == "&&"
+            AND
+        si operator == "||"
+            OR
+    valor[[negacion -> expr:expression]]
+        valor[[expr]]
+        NOT
+    valor[[cast -> to:type from:expression]]
+        valor[[from]]
+        <to>2<from.tipo>
+    valor[[iarray -> name:expression index:expression]]
+        direccion[[name]]
+        PUSH {index}
+        PUSH {name.definicion.tipo.size}
+        MUL
+        ADD
+        LOAD
+    valor[[structField -> name:expression field:string]]
+        PUSHA {name.definicion.address}
+        PUSH {name.definicion.tipo}
+        ADD 
+
+direccion: expr -> Instruccion*
+    direccion[[var -> name:string]]=
+        PUSHA {var.definicion.address}
+    
+
+
+
+
+
+
+
+NODES
+-program -> def*;
+
+-aritmetica:expression -> left:expression operator:string right:expression;
+-comparacion:expression -> left:expression operator:string right:expression;
+-logica:expression -> left:expression operator:string right:expression;
+invoca:expression,sentence -> name:string params:expression*;
+-var:expression -> name:string;
+-litEnt:expression -> value:string;
+-litReal:expression -> value:string;
+-litChar:expression -> value:string;
+-negacion:expression -> expr:expression;
+-cast:expression -> to:type from:expression;
+-iarray:expression -> name:expression index:expression;
+-structField:expression -> name:expression field:string;
+
+ifelse: sentence -> condition:expression sentence* els:sentence*;
+while: sentence -> condition:expression body:sentence*;
+-print: sentence -> tipo:string expression;
+read: sentence -> expr:expression;
+-assignment : sentence -> var:expression value:expression;
+return: sentence -> expression;
+
+returnVoidExpression: expression ->;
+
+
+-varDefinition:def -> name:string tipo:type ;
+-structFieldDefinition:def -> name:string tipo:type ;
+-funcDefinition:def -> name:string params:varDefinition* retType:type vars:varDefinition* body:sentence* ;
+-structDefinition:def -> name:string fields:structFieldDefinition*;
+
+
+

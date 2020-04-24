@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Code Specification (VGen)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        body {
+            font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            vertical-align: top;
+        }
+
+        .cabecera {
+            color: #FFFFFF;
+            background-color: #8DB3E2;
+        }
+
+        .nodo {
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .categoria {
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .nombreAtt {
+            font-style: italic;
+        }
+
+        .tipo {
+            color: #808080;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Code Specification</h2>
+<table border="0" cellspacing="0">
+    <tr class="cabecera">
+        <td><strong>&nbsp;Función</strong></td>
+        <td><strong>Plantillas de Código</strong></td>
+    </tr>
+    <tr>
+        <td>run[[<span class="categoria">program</span>]]&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>run[[<span class="nodo">program</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">defs</span><span class="tipo">:def*</span>&nbsp;]]&nbsp;= <br>&nbsp;
+            #SOURCE {file} <br/>
+            define[[defs]]
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;<br><br></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>define[[<span class="categoria">type</span>]]&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>&fnof;<sub>2</sub>[[<span class="nodo">entero</span> &nbsp;&rarr; &lambda;&nbsp;]]&nbsp;= <br>&nbsp;</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>&fnof;<sub>2</sub>[[<span class="nodo">real</span> &nbsp;&rarr; &lambda;&nbsp;]]&nbsp;= <br>&nbsp;</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>&fnof;<sub>2</sub>[[<span class="nodo">caracter</span> &nbsp;&rarr; &lambda;&nbsp;]]&nbsp;= <br>&nbsp;</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>&fnof;<sub>2</sub>[[<span class="nodo">clase</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">name</span><span class="tipo">:String</span>&nbsp;]]&nbsp;= <br>&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>&fnof;<sub>2</sub>[[<span class="nodo">array</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">tipo</span><span class="tipo">:type</span> &nbsp;<span
+                class="nombreAtt">dimension</span><span class="tipo">:String</span>&nbsp;]]&nbsp;= <br>&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>&fnof;<sub>2</sub>[[<span class="nodo">voidType</span> &nbsp;&rarr; &lambda;&nbsp;]]&nbsp;= <br>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;<br><br></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>valor[[<span class="categoria">expression</span>]]&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>valor[[<span class="nodo">aritmetica</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">left</span><span class="tipo">:expression</span> &nbsp;<span class="nombreAtt">operator</span><span
+                class="tipo">:String</span> &nbsp;<span class="nombreAtt">right</span><span
+                class="tipo">:expression</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;valor[[left]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;valor[[right]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;si operator == "+" <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD < aritmetica.tipo > <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;si operator == "-" <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;SUB < aritmetica.tipo > <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;si operator == "*" <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;MUL < aritmetica.tipo > <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;si operator == "/" <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;DIV < aritmetica.tipo > <br/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>valor[[<span class="nodo">comparacion</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">left</span><span class="tipo">:expression</span> &nbsp;<span class="nombreAtt">operator</span><span
+                class="tipo">:String</span> &nbsp;<span class="nombreAtt">right</span><span
+                class="tipo">:expression</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;valor[[left]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;valor[[right]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;si operator == ">" <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT < comparacion.tipo > <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;si operator == ">=" <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GE < comparacion.tipo > <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; si operator == "<" <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LT < comparacion.tipo > <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; si operator == "<=" <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LE < comparacion.tipo > <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; si operator == "==" <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EQ < comparacion.tipo > <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; si operator == "!=" <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NE < comparacion.tipo > <br/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>valor[[<span class="nodo">logica</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">left</span><span class="tipo">:expression</span> &nbsp;<span class="nombreAtt">operator</span><span
+                class="tipo">:String</span> &nbsp;<span class="nombreAtt">right</span><span
+                class="tipo">:expression</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;valor[[left]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;valor[[right]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;si operator == "&&" <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;AND <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; si operator == "||" <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;OR <br/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>valor[[<span class="nodo">invocaExpr</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">name</span><span class="tipo">:String</span> &nbsp;<span
+                class="nombreAtt">params</span><span class="tipo">:expression*</span>&nbsp;]]&nbsp;= <br>&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>valor[[<span class="nodo">var</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">name</span><span class="tipo">:String</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;direccion[[name]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;LOAD < var.tipo > <br/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>valor[[<span class="nodo">litEnt</span> &nbsp;&rarr; &nbsp;<span class="nombreAtt">value</span><span
+                class="tipo">:String</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;PUSH {value} <br/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>valor[[<span class="nodo">litReal</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">value</span><span class="tipo">:String</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;PUSH {value} <br/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>valor[[<span class="nodo">litChar</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">value</span><span class="tipo">:String</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;PUSH {value} <br/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>valor[[<span class="nodo">negacion</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">expr</span><span class="tipo">:expression</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;valor[[expr]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;NOT <br/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>valor[[<span class="nodo">cast</span> &nbsp;&rarr; &nbsp;<span class="nombreAtt">to</span><span
+                class="tipo">:type</span> &nbsp;<span class="nombreAtt">from</span><span class="tipo">:expression</span>&nbsp;]]&nbsp;=
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;valor[[from]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;< to > 2 < from.tipo >
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>valor[[<span class="nodo">iarray</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">name</span><span class="tipo">:expression</span> &nbsp;<span
+                class="nombreAtt">index</span><span class="tipo">:expression</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;direccion[[name]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;PUSH {index} <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;PUSH {name.definicion.tipo.size} <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;MUL < name.definicion.tipo > <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;ADD < name.definicion.tipo ><br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;LOAD < name.definicion.tipo ><br/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>valor[[<span class="nodo">structField</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">name</span><span class="tipo">:expression</span> &nbsp;<span
+                class="nombreAtt">field</span><span class="tipo">:String</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;PUSHA {name.definicion.address} <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;ADD < name.definicion.tipo > <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;LOAD < name.definicion.tipo > <br/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>valor[[<span class="nodo">returnVoidExpression</span> &nbsp;&rarr; &lambda;&nbsp;]]&nbsp;= <br>&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;<br><br></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>ejecuta[[<span class="categoria">sentence</span>]]&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>ejecuta[[<span class="nodo">invocaSent</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">name</span><span class="tipo">:String</span> &nbsp;<span
+                class="nombreAtt">params</span><span class="tipo">:expression*</span>&nbsp;]]&nbsp;= <br>&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>ejecuta[[<span class="nodo">ifelse</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">condition</span><span class="tipo">:expression</span> &nbsp;<span class="nombreAtt">sentence</span><span
+                class="tipo">:sentence*</span> &nbsp;<span class="nombreAtt">els</span><span
+                class="tipo">:sentence*</span>&nbsp;]]&nbsp;= <br>&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>ejecuta[[<span class="nodo">while</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">condition</span><span class="tipo">:expression</span> &nbsp;<span class="nombreAtt">body</span><span
+                class="tipo">:sentence*</span>&nbsp;]]&nbsp;= <br>&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>ejecuta[[<span class="nodo">print</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">expression</span><span class="tipo">:expression</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp; #LINE {endline} <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; valor[[expression]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; out < expression.tipo >
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>ejecuta[[<span class="nodo">printsp</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">expression</span><span class="tipo">:expression</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp; #LINE {endline} <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; valor[[expression]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; out < expression.tipo > <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; pushb 32 <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; outb
+
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>ejecuta[[<span class="nodo">println</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">expression</span><span class="tipo">:expression</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp; #LINE {endline} <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; valor[[expression]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; out < expression.tipo > <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; pushb 10 <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; outb
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>ejecuta[[<span class="nodo">read</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">expr</span><span class="tipo">:expression</span>&nbsp;]]&nbsp;= <br>&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>ejecuta[[<span class="nodo">assignment</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">var</span><span class="tipo">:expression</span> &nbsp;<span
+                class="nombreAtt">value</span><span class="tipo">:expression</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp; #LINE {endline} <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; direccion[[var]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; valor[[value]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; store < var.tipo >
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>ejecuta[[<span class="nodo">return</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">expression</span><span class="tipo">:expression</span>&nbsp;]]&nbsp;= <br>&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;<br><br></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>define[[<span class="categoria">def</span>]]&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>define[[<span class="nodo">varDefinition</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">name</span><span class="tipo">:String</span> &nbsp;<span class="nombreAtt">tipo</span><span
+                class="tipo">:type</span> &nbsp;<span class="nombreAtt">scope</span><span class="tipo">:String</span>&nbsp;]]&nbsp;=
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;#{scope} {name} : {tipo}
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>define[[<span class="nodo">structFieldDefinition</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">name</span><span class="tipo">:String</span> &nbsp;<span class="nombreAtt">tipo</span><span
+                class="tipo">:type</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;{name} : {tipo}
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>define[[<span class="nodo">funcDefinition</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">name</span><span class="tipo">:String</span> &nbsp;<span
+                class="nombreAtt">params</span><span class="tipo">:varDefinition*</span><br>&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;<span class="nombreAtt">retType</span><span class="tipo">:type</span> &nbsp;<span class="nombreAtt">vars</span><span
+                    class="tipo">:varDefinition*</span> &nbsp;<span class="nombreAtt">body</span><span class="tipo">:sentence*</span>&nbsp;]]&nbsp;=
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;define[[params]] <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;define[[vars]] <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;ejecuta[[body]]
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>define[[<span class="nodo">structDefinition</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">name</span><span
+                class="tipo">:String</span> &nbsp;<span class="nombreAtt">fields</span><span class="tipo">:structFieldDefinition*</span>&nbsp;]]&nbsp;=
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# type {name} : { <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;define[[fields]]<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;}
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;<br><br></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>direccion[[<span class="categoria">expr</span>]]&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>direccion[[<span class="nodo">var</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">name</span><span class="tipo">:String</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;PUSHA {var.definicion.address}
+        </td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td>direccion[[<span class="nodo">structField</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">name</span><span class="tipo">:expression</span> &nbsp;<span
+                class="nombreAtt">field</span><span class="tipo">:String</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;PUSHA {name.definicion.address} <br/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>direccion[[<span class="nodo">iarray</span> &nbsp;&rarr; &nbsp;<span
+                class="nombreAtt">name</span><span class="tipo">:expression</span> &nbsp;<span
+                class="nombreAtt">index</span><span class="tipo">:expression</span>&nbsp;]]&nbsp;= <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;direccion[[name]] <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;PUSH {index} <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;PUSH {name.definicion.tipo.size} <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;MUL < name.definicion.tipo > <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;ADD < name.definicion.tipo > <br/>
+        </td>
+    </tr>
+
+
+</table>
+</body>
+
+</html>
