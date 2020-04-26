@@ -92,7 +92,7 @@ public class TypeChecking extends DefaultVisitor {
             }
         }
         predicado(node.getRetType().getClass() != VoidType.class || rets.size() == 0, "El return no debe tener expresión en funciones void", node);
-        rets.forEach(x -> predicado(x.getClass() == node.getRetType().getClass(), "Tipo de retorno no coincide", x));
+        rets.forEach(x -> predicado(((Return)x).getExpression().getType().getClass() == node.getRetType().getClass(), "Tipo de retorno no coincide", x));
         return null;
     }
 
@@ -301,11 +301,16 @@ public class TypeChecking extends DefaultVisitor {
 
         super.visit(node, param);
         predicado(mismoTipo(node.getLeft(), node.getRight()), "Los operandos deben ser del mismo tipo", node);
+
         predicado(!tipoSimple(node.getLeft().getType()) || !tipoSimple(node.getRight().getType()), "Deben ser tipos simples", node);
+
         if (!tipoSimple(node.getLeft().getType()) && !tipoSimple(node.getRight().getType())) {
+
             predicado(tiposComparacion(node.getLeft().getType(), node.getRight().getType()), "Los operandos deben ser de tipo real o entero", node);
         }
+
         node.setType(node.getLeft().getType());
+
         node.setModificable(false);
 
         return null;
@@ -320,7 +325,7 @@ public class TypeChecking extends DefaultVisitor {
         if (!tipoSimple(node.getLeft().getType()) && !tipoSimple(node.getRight().getType())) {
             predicado(tiposComparacion(node.getLeft().getType(), node.getRight().getType()), "Los operandos deben ser de tipo real o entero", node);
         }
-        node.setType(node.getLeft().getType());
+        node.setType(new Entero());
         node.setModificable(false);
         return null;
     }

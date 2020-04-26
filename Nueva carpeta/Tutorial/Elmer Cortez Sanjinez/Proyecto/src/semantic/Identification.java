@@ -312,9 +312,7 @@ public class Identification extends DefaultVisitor {
 
     //	class Return { Expression expression; }
     public Object visit(Return node, Object param) {
-
-        // super.visit(node, param);
-
+        
         if (node.getExpression() != null)
             node.getExpression().accept(this, param);
 

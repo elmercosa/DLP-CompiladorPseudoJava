@@ -11,11 +11,12 @@ import visitor.DefaultVisitor;
 
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 enum CodeFunction {
-    ADDRESS, VALUE, SIZE
+    ADDRESS, VALUE
 }
 
 public class CodeSelection extends DefaultVisitor {
@@ -116,10 +117,9 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class InvocaExpr { String name;  List<Expression> params; }
     public Object visit(InvocaExpr node, Object param) {
+        visitChildren(node.getParams(), CodeFunction.VALUE);
 
-        if (node.getParams() != null)
-            for (Expression child : node.getParams())
-                child.accept(this, param);
+        out("call " + node.getName());
 
         return null;
     }
@@ -127,9 +127,9 @@ public class CodeSelection extends DefaultVisitor {
     //	class InvocaSent { String name;  List<Expression> params; }
     public Object visit(InvocaSent node, Object param) {
 
-        if (node.getParams() != null)
-            for (Expression child : node.getParams())
-                child.accept(this, param);
+        visitChildren(node.getParams(), CodeFunction.VALUE);
+
+        out("call " + node.getName());
 
         return null;
     }
@@ -149,7 +149,7 @@ public class CodeSelection extends DefaultVisitor {
     //	class LitEnt { String value; }
     public Object visit(LitEnt node, Object param) {
         assert (param == CodeFunction.VALUE);
-        out("push " + node.getValue());
+        out("pushi " + node.getValue());
         return null;
     }
 
@@ -203,6 +203,18 @@ public class CodeSelection extends DefaultVisitor {
         return null;
     }
 
+    //	class StructFieldDefinition { String name;  Type tipo; }
+    public Object visit(StructFieldDefinition node, Object param) {
+        if (((CodeFunction) param) == CodeFunction.VALUE) {
+            visit(node, CodeFunction.ADDRESS);
+        } else if (((CodeFunction) param) == CodeFunction.ADDRESS) {
+            out("pusha " + node.getAddress());
+        } else {
+            out("\t" + node.getName() + ":" + node.getTipo().getMAPLName());
+        }
+        return null;
+    }
+
     //	class StructField { Expression name;  String field; }
     public Object visit(StructField node, Object param) {
         node.getName().accept(this, CodeFunction.ADDRESS);
@@ -215,18 +227,16 @@ public class CodeSelection extends DefaultVisitor {
     //	class Ifelse { Expression condition;  List<Sentence> sentence;  List<Sentence> els; }
     public Object visit(Ifelse node, Object param) {
 
-        // super.visit(node, param);
-
         if (node.getCondition() != null)
-            node.getCondition().accept(this, param);
+            node.getCondition().accept(this, CodeFunction.VALUE);
 
-        if (node.getSentence() != null)
-            for (Sentence child : node.getSentence())
-                child.accept(this, param);
+        out("jz else");
 
-        if (node.getEls() != null)
-            for (Sentence child : node.getEls())
-                child.accept(this, param);
+        visitChildren(node.getSentence(), param);
+
+        out("else:");
+
+        visitChildren(node.getEls(), param);
 
         return null;
     }
@@ -236,12 +246,18 @@ public class CodeSelection extends DefaultVisitor {
 
         // super.visit(node, param);
 
+        out("while_inicio:");
+
         if (node.getCondition() != null)
-            node.getCondition().accept(this, param);
+            node.getCondition().accept(this, CodeFunction.VALUE);
+
+        out("jnz while_fin");
 
         if (node.getBody() != null)
             for (Sentence child : node.getBody())
                 child.accept(this, param);
+
+        out("while_fin:");
 
         return null;
     }
@@ -259,10 +275,12 @@ public class CodeSelection extends DefaultVisitor {
     //	class Printsp { Expression expression; }
     public Object visit(Printsp node, Object param) {
 
-        // super.visit(node, param);
+        out("#line " + node.getEnd().getLine());
+        node.getExpression().accept(this, CodeFunction.VALUE);
+        out("out", node.getExpression().getType());
 
-        if (node.getExpression() != null)
-            node.getExpression().accept(this, param);
+        out("push 32");
+        out("outb");
 
         return null;
     }
@@ -270,10 +288,11 @@ public class CodeSelection extends DefaultVisitor {
     //	class Println { Expression expression; }
     public Object visit(Println node, Object param) {
 
-        // super.visit(node, param);
-
-        if (node.getExpression() != null)
-            node.getExpression().accept(this, param);
+        out("#line " + node.getEnd().getLine());
+        node.getExpression().accept(this, CodeFunction.VALUE);
+        out("out", node.getExpression().getType());
+        out("push 10");
+        out("outb");
 
         return null;
     }
@@ -281,10 +300,10 @@ public class CodeSelection extends DefaultVisitor {
     //	class Read { Expression expr; }
     public Object visit(Read node, Object param) {
 
-        // super.visit(node, param);
-
-        if (node.getExpr() != null)
-            node.getExpr().accept(this, param);
+        out("#line " + node.getEnd().getLine());
+        node.getExpr().accept(this, CodeFunction.ADDRESS);
+        out("in", node.getExpr().getType());
+        out("store", node.getExpr().getType());
 
         return null;
     }
@@ -318,51 +337,34 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class VarDefinition { String name;  Type tipo; }
     public Object visit(VarDefinition node, Object param) {
-
-        // super.visit(node, param);
-
-        if (node.getScope().equals("global")) {
-            out("#GLOBAL " + node.getName() + ":" + node.getTipo().getMAPLName());
-        }
-
-        if (node.getTipo() != null)
-            node.getTipo().accept(this, param);
-
+        out("#"+node.getScope()+ " " + node.getName() + ":" + node.getTipo().getMAPLName());
         return null;
     }
 
-    //	class StructFieldDefinition { String name;  Type tipo; }
-    public Object visit(StructFieldDefinition node, Object param) {
-        if (((CodeFunction) param) == CodeFunction.VALUE) {
-            visit(node, CodeFunction.ADDRESS);
-            out("load", node.getTipo());
-        } else if (((CodeFunction) param) == CodeFunction.ADDRESS) {
-            out("pusha " + node.getAddress());
-        } else {
-            out("\t" + node.getName() + ":" + node.getTipo().getMAPLName());
-        }
-        return null;
-    }
+
 
     //	class FuncDefinition { String name;  List<VarDefinition> params;  Type retType;  List<VarDefinition> vars;  List<Sentence> body; }
     public Object visit(FuncDefinition node, Object param) {
 
-        // super.visit(node, param);
+        out(node.getName()+":");
+        out("#func "+ node.getName());
 
-        if (node.getParams() != null)
-            for (VarDefinition child : node.getParams())
-                child.accept(this, param);
+        visitChildren(node.getParams(), param);
 
-        if (node.getRetType() != null)
-            node.getRetType().accept(this, param);
+        out("#ret " + node.getRetType().getMAPLName());
 
-        if (node.getVars() != null)
-            for (VarDefinition child : node.getVars())
-                child.accept(this, param);
+        visitChildren(node.getVars(), param);
 
-        if (node.getBody() != null)
-            for (Sentence child : node.getBody())
-                child.accept(this, param);
+        node.getRetType().accept(this, param);
+        int tamañoVars = node.getVars().stream().mapToInt(nodeParam -> nodeParam.getTipo().getSize()).sum();
+        out("enter " + tamañoVars);
+
+        visitChildren(node.getBody(), param);
+
+        int tamañoParams = node.getParams().stream().mapToInt(nodeParam -> nodeParam.getTipo().getSize()).sum();
+
+
+        out("ret " + node.getRetType().getSize()+ ", " + tamañoVars +  ", " + tamañoParams );
 
         return null;
     }
@@ -405,6 +407,7 @@ public class CodeSelection extends DefaultVisitor {
     private void line(AST node) {
         line(node.getEnd());
     }
+
 
     private PrintWriter writer;
     private String sourceFile;

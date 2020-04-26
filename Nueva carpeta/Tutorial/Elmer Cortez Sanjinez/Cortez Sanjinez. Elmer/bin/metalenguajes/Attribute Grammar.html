@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Attribute Grammar (VGen)</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style type="text/css">
+        body {
+            font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        .cabecera {
+            color: #FFFFFF;
+            background-color: #8DB3E2;
+        }
+
+        .nodo {
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .categoria {
+            color: #808080;
+        }
+
+        .nombreAtt {
+            font-style: italic;
+        }
+
+        .tipoAtt {
+            color: #808080;
+        }
+    </style>
+</head>
+
+<body>
+<h2>Attribute Grammar</h2>
+<table border="1" cellspacing="0">
+    <tr class="cabecera">
+        <td><strong>&nbsp;Nodo</strong></td>
+        <td><strong>&nbsp;Predicados&nbsp;</strong></td>
+        <td><strong>&nbsp;Reglas&nbsp;Semánticas&nbsp;</strong></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">program</span>&nbsp;&rarr; <span class="nombreAtt">def</span><span
+                class="tipoAtt">:def*</span></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td><span class="nodo">entero</span>:<span class="categoria">type</span>&nbsp;&rarr; &lambda;</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">real</span>:<span class="categoria">type</span>&nbsp;&rarr; &lambda;</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">caracter</span>:<span class="categoria">type</span>&nbsp;&rarr; &lambda;</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">clase</span>:<span class="categoria">type</span>&nbsp;&rarr; <span
+                class="nombreAtt">name</span><span class="tipoAtt">:String</span></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">array</span>:<span class="categoria">type</span>&nbsp;&rarr; <span
+                class="nombreAtt">tipo</span><span class="tipoAtt">:type</span> <span class="nombreAtt">dimension</span><span
+                class="tipoAtt">:String</span></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">voidType</span>:<span class="categoria">type</span>&nbsp;&rarr; &lambda;</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td><span class="nodo">invocaExpr</span>:<span class="categoria">expression</span>&nbsp;&rarr; <span
+                class="nombreAtt">name</span><span class="tipoAtt">:String</span> <span
+                class="nombreAtt">params</span><span class="tipoAtt">:expression*</span></td>
+        <td>
+            funciones[name] != null<br/>
+            invoca.definicion.tipo = VoidType <br/>
+            invoca.tipo = invoca.definicion.tipo <br/>
+            invoca.params.size == invoca.definicion.params.size <br/>
+            invoca.params_i.tipo == invoca.definicion.params_i.tipo
+        </td>
+        <td>
+            invoca.definicion = funciones[name] <br/>
+        </td>
+    </tr>
+
+    <tr>
+        <td><span class="nodo">aritmetica</span>:<span class="categoria">expression</span>&nbsp;&rarr; <span
+                class="nombreAtt">left</span><span class="tipoAtt">:expression</span> <span
+                class="nombreAtt">operator</span><span class="tipoAtt">:String</span> <span
+                class="nombreAtt">right</span><span class="tipoAtt">:expression</span></td>
+        <td>
+            aritmetica.left.tipo == comparacion.right.tipo <br/>
+            aritmetica.left.tipo &isin; { int, real } <br/>
+            aritmetica.right.tipo &isin; { int, real }
+        </td>
+        <td>
+            aritmetica.tipo = aritmetica.left.tipo
+        </td>
+    </tr>
+    <tr>
+        <td><span class="nodo">comparacion</span>:<span class="categoria">expression</span>&nbsp;&rarr; <span
+                class="nombreAtt">left</span><span class="tipoAtt">:expression</span> <span
+                class="nombreAtt">operator</span><span class="tipoAtt">:String</span> <span
+                class="nombreAtt">right</span><span class="tipoAtt">:expression</span></td>
+        <td>
+            comparacion.left.tipo == comparacion.right.tipo <br/>
+            comparacion.left.tipo &isin; { int, real } <br/>
+            comparacion.right.tipo &isin; { int, real }
+        </td>
+        <td>
+            comparacion.tipo = comparacion.left.tipo
+        </td>
+    </tr>
+    <tr>
+        <td><span class="nodo">logica</span>:<span class="categoria">expression</span>&nbsp;&rarr; <span
+                class="nombreAtt">left</span><span class="tipoAtt">:expression</span> <span
+                class="nombreAtt">operator</span><span class="tipoAtt">:String</span> <span
+                class="nombreAtt">right</span><span class="tipoAtt">:expression</span></td>
+        <td>
+            logica.left.tipo == logica.right.tipo <br/>
+            logica.left.tipo &isin; { int, real } <br/>
+            logica.right.tipo &isin; { int, real }
+        </td>
+        <td>
+            logica.tipo = logica.left.tipo
+        </td>
+    </tr>
+
+    <tr>
+        <td><span class="nodo">var</span>:<span class="categoria">expression</span>&nbsp;&rarr; <span class="nombreAtt">name</span><span
+                class="tipoAtt">:String</span></td>
+        <td>variables.buscaTodos(name) != null</td>
+        <td> var.definicion = variables.buscaTodos(name) <br/>
+            var.tipo = var.definicion.tipo <br/>
+            var.modificable = true
+        </td>
+    </tr>
+    <tr>
+        <td><span class="nodo">litEnt</span>:<span class="categoria">expression</span>&nbsp;&rarr; <span
+                class="nombreAtt">value</span><span class="tipoAtt">:String</span></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">litReal</span>:<span class="categoria">expression</span>&nbsp;&rarr; <span
+                class="nombreAtt">value</span><span class="tipoAtt">:String</span></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">litChar</span>:<span class="categoria">expression</span>&nbsp;&rarr; <span
+                class="nombreAtt">value</span><span class="tipoAtt">:String</span></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">negacion</span>:<span class="categoria">expression</span>&nbsp;&rarr; <span
+                class="nombreAtt">expr</span><span class="tipoAtt">:expression</span></td>
+        <td>
+            negacion.expr.tipo == Entero
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">cast</span>:<span class="categoria">expression</span>&nbsp;&rarr; <span
+                class="nombreAtt">to</span><span class="tipoAtt">:type</span> <span class="nombreAtt">from</span><span
+                class="tipoAtt">:expression</span></td>
+        <td>
+            cast.to.tipo != cast.from.tipo <br/>
+            cast.to.tipo &isin; { int, real, char } <br/>
+            cast.from.tipo &isin; { int, real, char }
+        </td>
+        <td>
+            cast.tipo = cast.to.tipo <br/>
+            cast.modificable = false
+        </td>
+    </tr>
+    <tr>
+        <td><span class="nodo">iarray</span>:<span class="categoria">expression</span>&nbsp;&rarr; <span
+                class="nombreAtt">name</span><span class="tipoAtt">:expression</span> <span
+                class="nombreAtt">index</span><span class="tipoAtt">:expression</span></td>
+        <td>
+            iarray.name.tipo == Array <br/>
+            iarray.index.tipo == Entero
+        </td>
+        <td>
+            if(iarray.name.tipo == Array){ <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;iarray.tipo = iarray.name.tipo<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;iarray.modificable = true<br/>
+            }
+
+        </td>
+    </tr>
+    <tr>
+        <td><span class="nodo">structField</span>:<span class="categoria">expression</span>&nbsp;&rarr; <span
+                class="nombreAtt">name</span><span class="tipoAtt">:expression</span> <span
+                class="nombreAtt">field</span><span class="tipoAtt">:String</span></td>
+        <td>
+            structFields[name] != null <br/>
+            structFields.name.tipo == clase <br/>
+            structFields.definicion != null
+        </td>
+        <td>
+            structField.definicion = structFields[name] <br/>
+            structField.tipo = structField.definicion.tipo <br/>
+            structField.modificable = true
+        </td>
+    </tr>
+    <tr>
+        <td><span class="nodo">returnVoidExpression</span>:<span class="categoria">expression</span>&nbsp;&rarr;
+            &lambda;
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td><span class="nodo">invocaSent</span>:<span class="categoria">sentence</span>&nbsp;&rarr; <span
+                class="nombreAtt">name</span><span class="tipoAtt">:String</span> <span
+                class="nombreAtt">params</span><span class="tipoAtt">:expression*</span></td>
+        <td>
+            funciones[name] != null<br/>
+            invoca.tipo = invoca.definicion.tipo <br/>
+            invoca.params.size == invoca.definicion.params.size <br/>
+            invoca.params_i.tipo == invoca.definicion.params_i.tipo
+        </td>
+        <td>invoca.definicion = funciones[name]</td>
+    </tr>
+    <tr>
+        <td><span class="nodo">ifelse</span>:<span class="categoria">sentence</span>&nbsp;&rarr; <span
+                class="nombreAtt">condition</span><span class="tipoAtt">:expression</span> <span class="nombreAtt">sentence</span><span
+                class="tipoAtt">:sentence*</span> <span class="nombreAtt">els</span><span
+                class="tipoAtt">:sentence*</span></td>
+        <td>
+            condition.tipo == Entero
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">while</span>:<span class="categoria">sentence</span>&nbsp;&rarr; <span class="nombreAtt">condition</span><span
+                class="tipoAtt">:expression</span> <span class="nombreAtt">body</span><span
+                class="tipoAtt">:sentence*</span></td>
+        <td>
+            condition.tipo == Entero
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">print</span>:<span class="categoria">sentence</span>&nbsp;&rarr; <span class="nombreAtt">expression</span><span
+                class="tipoAtt">:expression</span></td>
+        <td>
+            print.expr.tipo &isin; { int, real, char } <br/>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">printsp</span>:<span class="categoria">sentence</span>&nbsp;&rarr; <span
+                class="nombreAtt">expression</span><span class="tipoAtt">:expression</span></td>
+        <td>
+            printsp.expr.tipo &isin; { int, real, char } <br/>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">println</span>:<span class="categoria">sentence</span>&nbsp;&rarr; <span
+                class="nombreAtt">expression</span><span class="tipoAtt">:expression</span></td>
+        <td>
+            println.expr.tipo &isin; { int, real, char } <br/>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">read</span>:<span class="categoria">sentence</span>&nbsp;&rarr; <span class="nombreAtt">expr</span><span
+                class="tipoAtt">:expression</span></td>
+        <td>
+            read.expr.tipo &isin; { int, real, char } <br/>
+            read.expr.modificable == true
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">assignment</span>:<span class="categoria">sentence</span>&nbsp;&rarr; <span
+                class="nombreAtt">var</span><span class="tipoAtt">:expression</span> <span
+                class="nombreAtt">value</span><span class="tipoAtt">:expression</span></td>
+        <td>
+            assignment.var.tipo == assignment.value.tipo <br/>
+            assignment.var.tipo &isin; { int, real, char } <br/>
+            assignment.var.modificable == true
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="nodo">return</span>:<span class="categoria">sentence</span>&nbsp;&rarr; <span
+                class="nombreAtt">expression</span><span class="tipoAtt">:expression</span></td>
+        <td>
+
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td><span class="nodo">varDefinition</span>:<span class="categoria">def</span>&nbsp;&rarr; <span
+                class="nombreAtt">name</span><span class="tipoAtt">:String</span> <span
+                class="nombreAtt">tipo</span><span class="tipoAtt">:type</span></td>
+        <td>variables.buscaActual(name) == null</td>
+        <td>variables[name] = varDefinition</td>
+    </tr>
+    <tr>
+        <td><span class="nodo">structFieldDefinition</span>:<span class="categoria">def</span>&nbsp;&rarr; <span
+                class="nombreAtt">name</span><span class="tipoAtt">:String</span> <span
+                class="nombreAtt">tipo</span><span class="tipoAtt">:type</span></td>
+        <td>structFields[name] == null</td>
+        <td>structFields[name] = structFieldDefinition</td>
+    </tr>
+    <tr>
+        <td><span class="nodo">funcDefinition</span>:<span class="categoria">def</span>&nbsp;&rarr; <span
+                class="nombreAtt">name</span><span class="tipoAtt">:String</span> <span
+                class="nombreAtt">params</span><span class="tipoAtt">:varDefinition*</span> <span class="nombreAtt">retType</span><span
+                class="tipoAtt">:type</span> <span class="nombreAtt">vars</span><span
+                class="tipoAtt">:varDefinition*</span> <span class="nombreAtt">body</span><span class="tipoAtt">:sentence*</span>
+        </td>
+        <td>
+            funciones[name] == null<br/>
+            funcDefinition.sentences_i == funcDefinition.returnType <br/>
+            funcDefinition.returnType &isin; { int, real, char } <br/>
+            funcDefinition.params_i.tipo &isin; { int, real, char }
+        </td>
+        <td>funciones[name] = funcDefinition { <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;variables.set() <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;visit(localesi) <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;visit(sentenciai) <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;variables.reset() <br/>
+            } <br/>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="nodo">structDefinition</span>:<span class="categoria">def</span>&nbsp;&rarr; <span
+                class="nombreAtt">name</span><span class="tipoAtt">:String</span> <span
+                class="nombreAtt">fields</span><span class="tipoAtt">:structFieldDefinition*</span></td>
+        <td>structs[name] == null</td>
+        <td>structs[name] = structDefinition</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td></td>
+        <td></td>
+    </tr>
+
+
+</table>
+
+<br>
+Recordatorio de los operadores (para cortar y pegar): &rArr; &hArr; &ne; &empty; &isin; &notin; &cup; &cap; &sub; &nsub;
+&sum; &exist; &forall;
+<h3>Atributos</h3>
+<table border="1" cellspacing="0">
+    <tr class="cabecera">
+        <td>&nbsp;<strong>Nodo/Categoría Sintáctica</strong>&nbsp;</td>
+        <td>&nbsp;<strong>Nombre del Atributo</strong>&nbsp;</td>
+        <td>&nbsp;<strong>Tipo Java</strong>&nbsp;</td>
+        <td>&nbsp;<strong>Heredado/Sintetizado</strong>&nbsp;</td>
+        <td>&nbsp;<strong>Descripción</strong>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>&nbsp;invoca</td>
+        <td>definicion</td>
+        <td>defFunc</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>&nbsp;variable</td>
+        <td>definicion</td>
+        <td>defVar</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>struct</td>
+        <td>definicion</td>
+        <td>defStruct</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>structfield</td>
+        <td>definicion</td>
+        <td>defStructFieldDefinition</td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+
+</body>
+
+</html>

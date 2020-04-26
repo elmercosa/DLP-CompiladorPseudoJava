@@ -1,0 +1,47 @@
+#source "Test Generación de Código 1.txt"
+#global global:float
+doble:
+#func doble
+#param valor:int
+#ret int
+enter 0
+#line 23
+pusha 8
+loadi
+pushi 2
+muli
+ret 2, 0, 2
+main:
+#func main
+#ret void
+#local local:int
+enter 2
+#line 29
+pusha 0
+pushf 1.0
+storef
+#line 30
+pusha 2
+pushi 2
+storei
+#line 32
+pusha 0
+loadf
+pusha 0
+loadf
+lti
+jz else
+#line 33
+pushi 1
+outi
+else:
+#line 35
+pusha 2
+loadi
+outi
+#line 38
+pushi 2
+call doble
+outi
+ret 0, 2, 0
+halt

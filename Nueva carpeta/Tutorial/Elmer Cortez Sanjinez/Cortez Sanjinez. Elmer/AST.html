@@ -1,0 +1,82 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<style type="text/css">
+.value { font-weight: bold; }
+.dots { color: #bebdbd; }
+.type { color: #BBBBBB; }
+.pos { color: #CCCCCC; }
+.sourceText { color: #BBBBBB; }
+.posText {
+	color: #BBBBBB;
+	text-decoration: underline; font-weight: bold;
+}
+.null {
+	color: #FF0000;
+	font-weight: bold;
+	font-style: italic;
+}
+</style>
+</head>
+
+<body><pre>
+[ASTPrinter] -------------------------------- line:col  line:col
+
+<span class="dots"></span>Program &rarr;                                                   <span class="pos">20:5  38:14  </span><span class="sourceText">var </span><span class="posText">global:float;</span><span class="sourceText"> ... </span><span class="posText">print doble(2</span><span class="sourceText">);</span>
+<span class="dots">.  </span>def  <span class="type">List&lt;Def&gt;</span> = 
+<span class="dots">.  .  </span>VarDefinition &rarr;                                       <span class="pos">20:5  20:10  </span><span class="sourceText">var </span><span class="posText">global</span><span class="sourceText">:float;</span>
+<span class="dots">.  .  |  </span>"<span class="value">global</span>"  
+<span class="dots">.  .  |  </span><span class="value">Real</span> &rarr;                                             <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  </span>"<span class="value">global</span>"  
+<span class="dots">.  .  </span>FuncDefinition &rarr;                                      <span class="pos">22:1  23:17  </span><span class="sourceText"></span><span class="posText">doble(valor:int):int {</span><span class="sourceText"> ... </span><span class="posText">return valor * 2</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  </span>"<span class="value">doble</span>"  
+<span class="dots">.  .  |  </span>params  <span class="type">List&lt;VarDefinition&gt;</span> = 
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">22:7  22:11  </span><span class="sourceText">doble(</span><span class="posText">valor</span><span class="sourceText">:int):int {</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">valor</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">Entero</span> &rarr;                                     <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">param</span>"  
+<span class="dots">.  .  |  </span><span class="value">Entero</span> &rarr;                                           <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  </span>vars  <span class="type">List&lt;VarDefinition&gt;</span> = 
+<span class="dots">.  .  |  </span>body  <span class="type">List&lt;Sentence&gt;</span> = 
+<span class="dots">.  .  |  .  </span>Return &rarr;                                        <span class="pos">23:9  23:17  </span><span class="sourceText">return </span><span class="posText">valor * 2</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>Aritmetica &rarr;                                 <span class="pos">23:9  23:17  </span><span class="sourceText">return </span><span class="posText">valor * 2</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  .  </span>"valor"  <span class="type">Var.name</span>                         <span class="pos">23:9  23:13  </span><span class="sourceText">return </span><span class="posText">valor</span><span class="sourceText"> * 2;</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">*</span>"  
+<span class="dots">.  .  |  .  |  .  </span>"2"  <span class="type">LitEnt.value</span>                         <span class="pos">23:17  23:17 </span><span class="sourceText">return valor * </span><span class="posText">2</span><span class="sourceText">;</span>
+<span class="dots">.  .  </span>FuncDefinition &rarr;                                      <span class="pos">26:1  38:14  </span><span class="sourceText"></span><span class="posText">main() {</span><span class="sourceText"> ... </span><span class="posText">print doble(2</span><span class="sourceText">);</span>
+<span class="dots">.  .  |  </span>"<span class="value">main</span>"  
+<span class="dots">.  .  |  </span>params  <span class="type">List&lt;VarDefinition&gt;</span> = 
+<span class="dots">.  .  |  </span><span class="value">VoidType</span> &rarr;                                         <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  </span>vars  <span class="type">List&lt;VarDefinition&gt;</span> = 
+<span class="dots">.  .  |  .  </span>VarDefinition &rarr;                                 <span class="pos">27:6  27:10  </span><span class="sourceText">var </span><span class="posText">local</span><span class="sourceText">:int;</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">local</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">Entero</span> &rarr;                                     <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">local</span>"  
+<span class="dots">.  .  |  </span>body  <span class="type">List&lt;Sentence&gt;</span> = 
+<span class="dots">.  .  |  .  </span>Assignment &rarr;                                    <span class="pos">29:2  29:13  </span><span class="sourceText"></span><span class="posText">global = 1.0</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>"global"  <span class="type">Var.name</span>                           <span class="pos">29:2  29:7   </span><span class="sourceText"></span><span class="posText">global</span><span class="sourceText"> = 1.0;</span>
+<span class="dots">.  .  |  .  |  </span>"1.0"  <span class="type">LitReal.value</span>                         <span class="pos">29:11  29:13 </span><span class="sourceText">global = </span><span class="posText">1.0</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  </span>Assignment &rarr;                                    <span class="pos">30:2  30:10  </span><span class="sourceText"></span><span class="posText">local = 2</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>"local"  <span class="type">Var.name</span>                            <span class="pos">30:2  30:6   </span><span class="sourceText"></span><span class="posText">local</span><span class="sourceText"> = 2;</span>
+<span class="dots">.  .  |  .  |  </span>"2"  <span class="type">LitEnt.value</span>                            <span class="pos">30:10  30:10 </span><span class="sourceText">local = </span><span class="posText">2</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  </span>Ifelse &rarr;                                        <span class="pos">32:6  35:13  </span><span class="sourceText">if (</span><span class="posText">local < 2) {</span><span class="sourceText"> ... </span><span class="posText">print local</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>Comparacion &rarr;                                <span class="pos">32:6  32:14  </span><span class="sourceText">if (</span><span class="posText">local < 2</span><span class="sourceText">) {</span>
+<span class="dots">.  .  |  .  |  .  </span>"local"  <span class="type">Var.name</span>                         <span class="pos">32:6  32:10  </span><span class="sourceText">if (</span><span class="posText">local</span><span class="sourceText"> < 2) {</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value"><</span>"  
+<span class="dots">.  .  |  .  |  .  </span>"2"  <span class="type">LitEnt.value</span>                         <span class="pos">32:14  32:14 </span><span class="sourceText">if (local < </span><span class="posText">2</span><span class="sourceText">) {</span>
+<span class="dots">.  .  |  .  |  </span>sentence  <span class="type">List&lt;Sentence&gt;</span> = 
+<span class="dots">.  .  |  .  |  .  </span>Print &rarr;                                   <span class="pos">33:9  33:9   </span><span class="sourceText">print </span><span class="posText">1</span><span class="sourceText">;	</span>
+<span class="dots">.  .  |  .  |  .  |  </span>"1"  <span class="type">LitEnt.value</span>                      <span class="pos">33:9  33:9   </span><span class="sourceText">print </span><span class="posText">1</span><span class="sourceText">;	</span>
+<span class="dots">.  .  |  .  |  </span>els  <span class="type">List&lt;Sentence&gt;</span> = 
+<span class="dots">.  .  |  .  |  .  </span>Print &rarr;                                   <span class="pos">35:9  35:13  </span><span class="sourceText">print </span><span class="posText">local</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  .  |  </span>"local"  <span class="type">Var.name</span>                      <span class="pos">35:9  35:13  </span><span class="sourceText">print </span><span class="posText">local</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">38:8  38:14  </span><span class="sourceText">print </span><span class="posText">doble(2</span><span class="sourceText">);</span>
+<span class="dots">.  .  |  .  |  </span>InvocaExpr &rarr;                                 <span class="pos">38:8  38:14  </span><span class="sourceText">print </span><span class="posText">doble(2</span><span class="sourceText">);</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">doble</span>"  
+<span class="dots">.  .  |  .  |  .  </span>params  <span class="type">List&lt;Expression&gt;</span> = 
+<span class="dots">.  .  |  .  |  .  |  </span>"2"  <span class="type">LitEnt.value</span>                      <span class="pos">38:14  38:14 </span><span class="sourceText">print doble(</span><span class="posText">2</span><span class="sourceText">);</span>
+
+[ASTPrinter] --------------------------------
+</pre>
+</body>
+</html>
