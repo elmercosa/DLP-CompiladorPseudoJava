@@ -65,4 +65,13 @@ public class Clase extends AbstractType {
 	public String getMAPLName() {
 		return getName();
 	}
+
+	public StructFieldDefinition searchField(String field){
+		for (StructFieldDefinition structDefinitionField : definition.getFields()) {
+			if(structDefinitionField.getName().equals(field)){
+				return structDefinitionField;
+			}
+		}
+		return null;
+	}
 }

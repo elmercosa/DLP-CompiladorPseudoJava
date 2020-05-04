@@ -15,7 +15,6 @@ public class Identification extends DefaultVisitor {
     private Map<String, FuncDefinition> funciones = new HashMap<>();
 
     private Map<String, StructDefinition> strucs = new HashMap<>();
-    private Map<String, StructFieldDefinition> strucsFields = new HashMap<>();
 
     private ErrorManager errorManager;
 
@@ -207,9 +206,6 @@ public class Identification extends DefaultVisitor {
     //	class StructField { Expression name;  String field; }
     public Object visit(StructField node, Object param) {
 
-        // super.visit(node, param);
-       node.setDefinicion(strucsFields.get(node.getField()));
-
         if (node.getName() != null)
             node.getName().accept(this, param);
 
@@ -328,7 +324,9 @@ public class Identification extends DefaultVisitor {
     //	class StructFieldDefinition { String name;  Type tipo; }
     public Object visit(StructFieldDefinition node, Object param) {
 
-        strucsFields.put(node.getName(),node);
+        if(param instanceof StructDefinition){
+            node.setStructDefinition((StructDefinition) param);
+        }
 
         if (node.getTipo() != null)
             node.getTipo().accept(this, param);
@@ -357,7 +355,7 @@ public class Identification extends DefaultVisitor {
     //	class StructDefinition { String name;  List<StructFieldDefinition> fields; }
     public Object visit(StructDefinition node, Object param) {
         predicado(strucs.get(node.getName()) == null, "Struct repetido " +node.getName(), node);
-        visitChildren(node.getFields(), param);
+        visitChildren(node.getFields(), node);
         strucs.put(node.getName(), node);
         return null;
     }

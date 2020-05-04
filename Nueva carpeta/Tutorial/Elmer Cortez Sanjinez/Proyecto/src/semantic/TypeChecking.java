@@ -122,7 +122,11 @@ public class TypeChecking extends DefaultVisitor {
         super.visit(node, param);
 
         predicado(node.getName().getType().getClass() == Clase.class, "Debe ser tipo struct", node);
-        predicado(node.getDefinicion() != null, "Campo no definido", node);
+        if(node.getName().getType() != null && node.getName().getType() instanceof  Clase){
+            Clase struct = (Clase) node.getName().getType();
+            predicado(struct.searchField(node.getField()) != null, "Campo no definido", node);
+            node.setDefinicion(struct.searchField(node.getField()));
+        }
 
         if (node.getDefinicion() != null) {
             node.setType(node.getDefinicion().getTipo());

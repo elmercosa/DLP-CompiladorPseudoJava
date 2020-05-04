@@ -65,4 +65,22 @@ public class StructFieldDefinition extends AbstractDef {
 
 	private int address;
 
+	private StructDefinition structDefinition;
+
+	public StructDefinition getStructDefinition() {
+		return structDefinition;
+	}
+
+	public void setStructDefinition(StructDefinition structDefinition) {
+		this.structDefinition = structDefinition;
+	}
+
+	public StructFieldDefinition searchField(String field){
+		for (StructFieldDefinition structDefinitionField : structDefinition.getFields()) {
+			if(structDefinitionField.getName().equals(field)){
+				return structDefinitionField;
+			}
+		}
+		return null;
+	}
 }
