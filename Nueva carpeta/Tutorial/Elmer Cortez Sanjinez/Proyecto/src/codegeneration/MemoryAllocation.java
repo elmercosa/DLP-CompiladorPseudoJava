@@ -360,21 +360,19 @@ public class MemoryAllocation extends DefaultVisitor {
         int size = 0;
 
         for (int i = 0; i < index + 1; i++) {
-            size += vars.get(i).getTipo().getSize();
+            size -= vars.get(i).getTipo().getSize();
         }
-
-        return address - size;
+        return size;
     }
 
     private int calcularBPParam(List<VarDefinition> params, int index) {
         int size = 0;
 
-        for (int i = index + 1; i < params.size(); i++) {
+        for (int i = index +1; i < params.size(); i++) {
             size += params.get(i).getTipo().getSize();
         }
-        System.out.println(address + " + 4 +" + size);
 
-        return address + 4 + size;
+        return 4 + size;
     }
 
     //	class StructDefinition { String name;  List<StructFieldDefinition> fields; }
@@ -382,15 +380,14 @@ public class MemoryAllocation extends DefaultVisitor {
 
         int adresssStruct = 0;
 
-        // super.visit(node, param);
-
         if (node.getFields() != null)
             for (StructFieldDefinition child : node.getFields()) {
-                child.setAddress(adresssStruct);
+                child.setAddress(address+adresssStruct);
                 adresssStruct += child.getTipo().getSize();
                 child.accept(this, param);
             }
 
+//        address += adresssStruct;
         return null;
     }
 

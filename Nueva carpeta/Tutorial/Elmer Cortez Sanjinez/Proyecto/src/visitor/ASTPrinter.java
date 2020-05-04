@@ -394,6 +394,7 @@ public class ASTPrinter extends DefaultVisitor {
 		print(indent + 1, "name", "String", node.getName());
 		visit(indent + 1, "tipo", "Type",node.getTipo());
 		print(indent + 1, "scope", "String", node.getScope());
+		print(indent + 1, "address", "String", node.getAddress());
 		return null;
 	}
 

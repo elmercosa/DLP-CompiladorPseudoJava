@@ -195,8 +195,6 @@ public class Identification extends DefaultVisitor {
     //	class Iarray { Expression name;  Expression index; }
     public Object visit(Iarray node, Object param) {
 
-        // super.visit(node, param);
-
         if (node.getName() != null)
             node.getName().accept(this, param);
 
@@ -221,18 +219,11 @@ public class Identification extends DefaultVisitor {
     //	class Ifelse { Expression condition;  List<Sentence> sentence;  List<Sentence> els; }
     public Object visit(Ifelse node, Object param) {
 
-        // super.visit(node, param);
+        if(param != null){
+            node.setDefinicion((FuncDefinition) param);
+        }
 
-        if (node.getCondition() != null)
-            node.getCondition().accept(this, param);
-
-        if (node.getSentence() != null)
-            for (Sentence child : node.getSentence())
-                child.accept(this, param);
-
-        if (node.getEls() != null)
-            for (Sentence child : node.getEls())
-                child.accept(this, param);
+        super.visit(node, param);
 
         return null;
     }
@@ -240,14 +231,11 @@ public class Identification extends DefaultVisitor {
     //	class While { Expression condition;  List<Sentence> body; }
     public Object visit(While node, Object param) {
 
-        // super.visit(node, param);
+        if(param != null){
+            node.setDefinicion((FuncDefinition) param);
+        }
 
-        if (node.getCondition() != null)
-            node.getCondition().accept(this, param);
-
-        if (node.getBody() != null)
-            for (Sentence child : node.getBody())
-                child.accept(this, param);
+        super.visit(node, param);
 
         return null;
     }
@@ -312,9 +300,11 @@ public class Identification extends DefaultVisitor {
 
     //	class Return { Expression expression; }
     public Object visit(Return node, Object param) {
-        
-        if (node.getExpression() != null)
-            node.getExpression().accept(this, param);
+        super.visit(node, null);
+
+        if(param != null){
+            node.setDefinicion((FuncDefinition) param);
+        }
 
         return null;
     }
@@ -327,7 +317,7 @@ public class Identification extends DefaultVisitor {
     //	class VarDefinition { String name;  Type tipo; }
     public Object visit(VarDefinition node, Object param) {
 
-        node.getTipo().accept(this, param); // No es necesario realmente
+        node.getTipo().accept(this, param);
 
         predicado(variables.getFromTop(node.getName()) == null, "Variable duplicada:"+ node.getName(), node);
         variables.put(node.getName(), node);
@@ -352,14 +342,10 @@ public class Identification extends DefaultVisitor {
         funciones.put(node.getName(), node);
         variables.set();
 
-        if (node.getParams() != null)
-            for (VarDefinition child : node.getParams())
-                child.accept(this, param);
+        visitChildren(node.getParams(), null);
+        visitChildren(node.getVars(), null);
+        visitChildren(node.getBody(), node);
 
-        for (VarDefinition child : node.getVars())
-            child.accept(this, param);
-        for (Sentence child : node.getBody())
-            child.accept(this, param);
         variables.reset();
 
         if (node.getRetType() != null)
@@ -371,10 +357,7 @@ public class Identification extends DefaultVisitor {
     //	class StructDefinition { String name;  List<StructFieldDefinition> fields; }
     public Object visit(StructDefinition node, Object param) {
         predicado(strucs.get(node.getName()) == null, "Struct repetido " +node.getName(), node);
-        if (node.getFields() != null)
-            for (StructFieldDefinition child : node.getFields()) {
-                child.accept(this, param);
-            }
+        visitChildren(node.getFields(), param);
         strucs.put(node.getName(), node);
         return null;
     }

@@ -8,6 +8,7 @@ package semantic;
 
 import ast.*;
 import main.ErrorManager;
+import netscape.javascript.JSUtil;
 import visitor.DefaultVisitor;
 
 import java.util.List;
@@ -24,11 +25,7 @@ public class TypeChecking extends DefaultVisitor {
     //	class Program { List<Def> def; }
     public Object visit(Program node, Object param) {
 
-        // super.visit(node, param);
-
-        if (node.getDef() != null)
-            for (Def child : node.getDef())
-                child.accept(this, param);
+        visitChildren(node.getDef(), param);
 
         return null;
     }
@@ -56,8 +53,6 @@ public class TypeChecking extends DefaultVisitor {
     //	class FuncDefinition { String name;  List<VarDefinition> params;  Type retType;  List<VarDefinition> vars;  List<Sentence> body; }
     public Object visit(FuncDefinition node, Object param) {
 
-        // super.visit(node, param);
-
         visitChildren(node.getParams(), param);
 
         node.getParams().forEach(x -> predicado(!tipoSimple(x.getTipo()), "Los parámetros deben de ser tipos primitivos", node));
@@ -70,29 +65,6 @@ public class TypeChecking extends DefaultVisitor {
         visitChildren(node.getVars(), param);
         visitChildren(node.getBody(), param);
 
-        List<Sentence> rets = node.getBody().stream().filter(x -> x.getClass() == Return.class).collect(Collectors.toList());
-
-        List<Sentence> ifElses = node.getBody().stream().filter(x -> x.getClass() == Ifelse.class).collect(Collectors.toList());
-
-        for (Sentence ifelse: ifElses) {
-            Ifelse ifelse1 = (Ifelse)ifelse;
-            if(ifelse1.getSentence() != null){
-                rets.addAll(((Ifelse)ifelse).getSentence().stream().filter(x -> x.getClass() == Return.class).collect(Collectors.toList()));
-            }
-            if(ifelse1.getEls() != null){
-                rets.addAll(((Ifelse)ifelse).getEls().stream().filter(x -> x.getClass() == Return.class).collect(Collectors.toList()));
-            }
-        }
-
-        List<Sentence> whiles = node.getBody().stream().filter(x -> x.getClass() == While.class).collect(Collectors.toList());
-        for (Sentence aWhile : whiles) {
-            While aWhile1 = ((While)aWhile);
-            if(aWhile1.getBody() != null){
-                rets.addAll(((While)aWhile).getBody().stream().filter(x -> x.getClass() == Return.class).collect(Collectors.toList()));
-            }
-        }
-        predicado(node.getRetType().getClass() != VoidType.class || rets.size() == 0, "El return no debe tener expresión en funciones void", node);
-        rets.forEach(x -> predicado(((Return)x).getExpression().getType().getClass() == node.getRetType().getClass(), "Tipo de retorno no coincide", x));
         return null;
     }
 
@@ -177,15 +149,21 @@ public class TypeChecking extends DefaultVisitor {
         super.visit(node, param);
         predicado(node.getName().getType().getClass() == ast.Array.class, "Debe ser tipo array", node);
         predicado(node.getIndex().getType().getClass() == ast.Entero.class, "Debe ser indice entero", node);
-        if (node.getName().getType() instanceof Array) {
-            Array array = (Array) node.getName().getType();
+        node.setModificable(true);
+        if(node.getName().getType().getClass() == Array.class){
+            Array array = (Array)node.getName().getType();
             node.setType(array.getTipo());
-            node.setModificable(true);
-        } else {
-            node.setType(node.getName().getType());
-            node.setModificable(true);
         }
+
         return null;
+    }
+
+    private Type tipoArray(Type array){
+        if(array.getClass() == Array.class){
+            return tipoArray(((Array) array).getTipo());
+        }else{
+            return array;
+        }
     }
 
     ///////  READ  ///////
@@ -205,8 +183,6 @@ public class TypeChecking extends DefaultVisitor {
     //	class Print { Expression expression; }
     public Object visit(Print node, Object param) {
 
-        // super.visit(node, param);
-
         if (node.getExpression() != null)
             node.getExpression().accept(this, param);
 
@@ -217,8 +193,6 @@ public class TypeChecking extends DefaultVisitor {
     //	class Printsp { Expression expression; }
     public Object visit(Printsp node, Object param) {
 
-        // super.visit(node, param);
-
         if (node.getExpression() != null)
             node.getExpression().accept(this, param);
 
@@ -226,10 +200,21 @@ public class TypeChecking extends DefaultVisitor {
         return null;
     }
 
+    //	class Return { Expression expression; }
+    public Object visit(Return node, Object param) {
+
+        super.visit(node, param);
+
+        if(node.getDefinicion()!= null){
+            predicado(node.getDefinicion().getRetType().getClass() == node.getExpression().getType().getClass(), "Tipo de retorno no coincide", node);
+        }
+
+
+        return null;
+    }
+
     //	class Println { Expression expression; }
     public Object visit(Println node, Object param) {
-
-        // super.visit(node, param);
 
         if (node.getExpression() != null)
             node.getExpression().accept(this, param);
@@ -285,7 +270,9 @@ public class TypeChecking extends DefaultVisitor {
     //	class Negacion { Expression expr; }
     public Object visit(Negacion node, Object param) {
 
-        // super.visit(node, param);
+         super.visit(node, param);
+
+        node.setType(new Entero());
 
         if (node.getExpr() != null)
             node.getExpr().accept(this, param);
@@ -297,7 +284,7 @@ public class TypeChecking extends DefaultVisitor {
 
     //	class Aritmetica { Expression left;  String operator;  Expression right; }
     public Object visit(Aritmetica node, Object param) {
-
+//        System.out.println(node.getStart() + node.getLeft().toString()+ node.getRight());
 
         super.visit(node, param);
         predicado(mismoTipo(node.getLeft(), node.getRight()), "Los operandos deben ser del mismo tipo", node);

@@ -86,6 +86,7 @@ returnExpression returns[Expression ast]
 expr returns[Expression ast]
 	: '(' expr ')' { $ast = $expr.ast; }
 	| expr'.'IDENT { $ast = new StructField($ctx.expr(0), $IDENT); }
+	| expr '[' expr ']' { $ast = new Iarray($ctx.expr(0), $ctx.expr(1)); }
 	| IDENT '(' expressions ')' ';'? { $ast = new InvocaExpr($IDENT,$expressions.list); }
 	| expr op=('*' | '/') expr { $ast = new Aritmetica($ctx.expr(0), $op, $ctx.expr(1)); }
 	| expr op=('+' | '-') expr { $ast = new Aritmetica($ctx.expr(0), $op, $ctx.expr(1)); }
@@ -93,7 +94,6 @@ expr returns[Expression ast]
 	| expr op=('&&' | '||') expr { $ast = new Logica($ctx.expr(0), $op, $ctx.expr(1)); }
 	| '!' expr { $ast = new Negacion($expr.ast); }
 	| 'cast' '<' type '>' '(' expr ')' { $ast = new Cast($type.ast,$expr.ast); }
-    | expr ('[' expr ']')+ { $ast = new Iarray($ctx.expr(0), $ctx.expr(1)); }
 	| IDENT { $ast = new Var($IDENT); }
     | INT_CONSTANT+ { $ast = new LitEnt($INT_CONSTANT); }
     | REAL_CONSTANT { $ast = new LitReal($REAL_CONSTANT); }

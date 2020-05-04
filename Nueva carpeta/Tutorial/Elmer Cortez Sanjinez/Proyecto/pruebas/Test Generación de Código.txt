@@ -17,24 +17,8 @@ NOTA: Es posible que el alumno deba adaptar ligeramente la sintaxis del lenguaje
 con la del lenguaje que le corresponde.
 */
 
-var global:float;
-
-doble(valor:int):int {
-	return valor * 2;
-}
 
 main() {
-	var local:int;
-
-	global = 1.0;
-	local = 2;
-
-	if (!(global < 2.0)) {
-		print 1;
-
-	} else {
-		print local;
-	}
-
-	print doble(2);
+	print cast<int>('A');
 }
+

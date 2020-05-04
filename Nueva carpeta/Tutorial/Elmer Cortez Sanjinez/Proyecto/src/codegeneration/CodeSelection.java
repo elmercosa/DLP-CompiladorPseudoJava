@@ -11,9 +11,8 @@ import visitor.DefaultVisitor;
 
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 enum CodeFunction {
     ADDRESS, VALUE
@@ -22,6 +21,8 @@ enum CodeFunction {
 public class CodeSelection extends DefaultVisitor {
 
     private Map<String, String> instruccion = new HashMap<>();
+    private Map<String, Character> caracteresEscape = new HashMap<>();
+
 
     public CodeSelection(Writer writer, String sourceFile) {
         this.writer = new PrintWriter(writer);
@@ -40,14 +41,23 @@ public class CodeSelection extends DefaultVisitor {
         instruccion.put("&&", "and");
         instruccion.put("||", "or");
         instruccion.put("!", "not");
+
+        caracteresEscape.put("'\\n'", '\n');
+        caracteresEscape.put("'\\t'", '\t');
+        caracteresEscape.put("'\\b'", '\b');
+        caracteresEscape.put("'\\r'", '\r');
+        caracteresEscape.put("'\\f'", '\f');
+
     }
 
     //	class Program { List<Def> def; }
     public Object visit(Program node, Object param) {
 
         out("#source \"" + sourceFile + "\"");
-        visitChildren(node.getDef(), param);
+        out("call main");
         out("halt");
+        visitChildren(node.getDef(), param);
+
 
         return null;
     }
@@ -97,9 +107,11 @@ public class CodeSelection extends DefaultVisitor {
     public Object visit(Comparacion node, Object param) {
 
         out("#line " + node.getEnd().getLine());
+
         node.getLeft().accept(this, CodeFunction.VALUE);
-        node.getLeft().accept(this, CodeFunction.VALUE);
-        out(instruccion.get(node.getOperator()), node.getType());
+        node.getRight().accept(this, CodeFunction.VALUE);
+
+        out(instruccion.get(node.getOperator()), node.getLeft().getType());
 
         return null;
     }
@@ -109,7 +121,7 @@ public class CodeSelection extends DefaultVisitor {
 
         out("#line " + node.getEnd().getLine());
         node.getLeft().accept(this, CodeFunction.VALUE);
-        node.getLeft().accept(this, CodeFunction.VALUE);
+        node.getRight().accept(this, CodeFunction.VALUE);
         out(instruccion.get(node.getOperator()));
 
         return null;
@@ -131,6 +143,10 @@ public class CodeSelection extends DefaultVisitor {
 
         out("call " + node.getName());
 
+        if (node.getDefinicion().getRetType().getClass() != VoidType.class) {
+            out("pop" + node.getDefinicion().getRetType().getSuffix());
+        }
+
         return null;
     }
 
@@ -141,7 +157,13 @@ public class CodeSelection extends DefaultVisitor {
             out("load", node.getType());
         } else { // Funcion.DIRECCION
             assert (param == CodeFunction.ADDRESS);
-            out("pusha " + node.getDefinicion().getAddress());
+            if (!node.getDefinicion().getScope().equals("global")) {
+                out("pusha bp");
+                out("push " + node.getDefinicion().getAddress());
+                out("add");
+            } else {
+                out("pusha " + node.getDefinicion().getAddress());
+            }
         }
         return null;
     }
@@ -163,7 +185,11 @@ public class CodeSelection extends DefaultVisitor {
     //	class LitChar { String value; }
     public Object visit(LitChar node, Object param) {
         assert (param == CodeFunction.VALUE);
-        out("pushb " + node.getValue());
+        if (node.getValue().charAt(1) == '\\') {
+            out("pushb " + (int) caracteresEscape.get(node.getValue()));
+        } else {
+            out("pushb " + (int) node.getValue().charAt(1));
+        }
         return null;
     }
 
@@ -182,8 +208,15 @@ public class CodeSelection extends DefaultVisitor {
 
         out("#line " + node.getEnd().getLine());
         node.getFrom().accept(this, CodeFunction.VALUE);
-        out(node.getFrom().getType().getSuffix() + "2" + node.getTo().getSuffix());
-
+        if (node.getTo().getClass() == Caracter.class && node.getFrom().getType().getClass() == Real.class) {
+            out("f2i");
+            out("i2b");
+        } else if (node.getTo().getClass() == Real.class && node.getFrom().getType().getClass() == Caracter.class) {
+            out("b2i");
+            out("i2f");
+        } else {
+            out(node.getFrom().getType().getSuffix() + "2" + node.getTo().getSuffix());
+        }
         return null;
     }
 
@@ -193,11 +226,11 @@ public class CodeSelection extends DefaultVisitor {
         out("#line " + node.getEnd().getLine());
         node.getName().accept(this, CodeFunction.ADDRESS);
         node.getIndex().accept(this, CodeFunction.VALUE);
-        out(size(node.getName().getType()));
+        out("push " + node.getType().getSize());
         out("mul");
         out("add");
         if (((CodeFunction) param) == CodeFunction.VALUE) {
-            out("load", node.getName().getType());
+            out("load", node.getType());
         }
 
         return null;
@@ -218,8 +251,10 @@ public class CodeSelection extends DefaultVisitor {
     //	class StructField { Expression name;  String field; }
     public Object visit(StructField node, Object param) {
         node.getName().accept(this, CodeFunction.ADDRESS);
+        out("push " + node.getDefinicion().getAddress());
+        out("add");
         if (((CodeFunction) param) == CodeFunction.VALUE) {
-            out("load", node.getName().getType());
+            out("load", node.getDefinicion().getTipo());
         }
         return null;
     }
@@ -230,34 +265,44 @@ public class CodeSelection extends DefaultVisitor {
         if (node.getCondition() != null)
             node.getCondition().accept(this, CodeFunction.VALUE);
 
-        out("jz else");
+        long contador = node.hashCode();
+
+        out("jz else" + contador);
 
         visitChildren(node.getSentence(), param);
 
-        out("else:");
+        if (!hasReturn(node.getSentence())) {
+            out("jmp finif" + contador);
+        }
+
+        out("else" + contador + ":");
 
         visitChildren(node.getEls(), param);
+
+        if (!hasReturn(node.getSentence())) {
+            out("finif" + contador + ":");
+        }
 
         return null;
     }
 
     //	class While { Expression condition;  List<Sentence> body; }
     public Object visit(While node, Object param) {
-
-        // super.visit(node, param);
-
-        out("while_inicio:");
+        int contador = node.hashCode();
+        out("while_inicio" + contador + ":");
 
         if (node.getCondition() != null)
             node.getCondition().accept(this, CodeFunction.VALUE);
 
-        out("jnz while_fin");
+        out("jz while_fin" + contador);
 
         if (node.getBody() != null)
             for (Sentence child : node.getBody())
                 child.accept(this, param);
 
-        out("while_fin:");
+        out("jmp " + "while_inicio" + contador);
+
+        out("while_fin" + contador + ":");
 
         return null;
     }
@@ -279,7 +324,7 @@ public class CodeSelection extends DefaultVisitor {
         node.getExpression().accept(this, CodeFunction.VALUE);
         out("out", node.getExpression().getType());
 
-        out("push 32");
+        out("pushb 32");
         out("outb");
 
         return null;
@@ -291,7 +336,7 @@ public class CodeSelection extends DefaultVisitor {
         out("#line " + node.getEnd().getLine());
         node.getExpression().accept(this, CodeFunction.VALUE);
         out("out", node.getExpression().getType());
-        out("push 10");
+        out("pushb 10");
         out("outb");
 
         return null;
@@ -310,22 +355,21 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class Assignment { Expression var;  Expression value; }
     public Object visit(Assignment node, Object param) {
-
         out("#line " + node.getEnd().getLine());
         node.getVar().accept(this, CodeFunction.ADDRESS);
         node.getValue().accept(this, CodeFunction.VALUE);
         out("store", node.getVar().getType());
-
         return null;
     }
 
     //	class Return { Expression expression; }
     public Object visit(Return node, Object param) {
+        super.visit(node, CodeFunction.VALUE);
 
-        // super.visit(node, param);
+        int tamañoParams = node.getDefinicion().getParams().stream().mapToInt(nodeParam -> nodeParam.getTipo().getSize()).sum();
+        int tamañoVars = node.getDefinicion().getVars().stream().mapToInt(nodeParam -> nodeParam.getTipo().getSize()).sum();
 
-        if (node.getExpression() != null)
-            node.getExpression().accept(this, param);
+        out("ret " + node.getDefinicion().getRetType().getSize() + ", " + tamañoVars + ", " + tamañoParams);
 
         return null;
     }
@@ -337,17 +381,15 @@ public class CodeSelection extends DefaultVisitor {
 
     //	class VarDefinition { String name;  Type tipo; }
     public Object visit(VarDefinition node, Object param) {
-        out("#"+node.getScope()+ " " + node.getName() + ":" + node.getTipo().getMAPLName());
+        out("#" + node.getScope() + " " + node.getName() + ":" + node.getTipo().getMAPLName());
         return null;
     }
-
-
 
     //	class FuncDefinition { String name;  List<VarDefinition> params;  Type retType;  List<VarDefinition> vars;  List<Sentence> body; }
     public Object visit(FuncDefinition node, Object param) {
 
-        out(node.getName()+":");
-        out("#func "+ node.getName());
+        out(node.getName() + ":");
+        out("#func " + node.getName());
 
         visitChildren(node.getParams(), param);
 
@@ -358,13 +400,12 @@ public class CodeSelection extends DefaultVisitor {
         node.getRetType().accept(this, param);
         int tamañoVars = node.getVars().stream().mapToInt(nodeParam -> nodeParam.getTipo().getSize()).sum();
         out("enter " + tamañoVars);
-
         visitChildren(node.getBody(), param);
 
-        int tamañoParams = node.getParams().stream().mapToInt(nodeParam -> nodeParam.getTipo().getSize()).sum();
-
-
-        out("ret " + node.getRetType().getSize()+ ", " + tamañoVars +  ", " + tamañoParams );
+        if (!node.hasReturn()) {
+            int tamañoParams = node.getParams().stream().mapToInt(nodeParam -> nodeParam.getTipo().getSize()).sum();
+            out("ret 0, " + tamañoVars + ", " + tamañoParams);
+        }
 
         return null;
     }
@@ -406,6 +447,11 @@ public class CodeSelection extends DefaultVisitor {
 
     private void line(AST node) {
         line(node.getEnd());
+    }
+
+    public boolean hasReturn(List<Sentence> lista) {
+        List<Sentence> returns = lista.stream().filter(sent -> sent.getClass() == Return.class).collect(Collectors.toList());
+        return returns.size() != 0;
     }
 
 
