@@ -29,7 +29,7 @@ import java.io.Writer;
  * - Para Generación de Código: 'MemoryAllocation.java' y 'CodeSelection.java'.
  */
 public class Main {
-    public static final String program = "pruebas/prueba.txt"; // Fichero de prueba durante el desarrollo
+    public static final String program = "pruebas/Test Generacion de Código 3.txt"; // Fichero de prueba durante el desarrollo
 
     public static void main(String[] args) throws Exception {
         ErrorManager errorManager = new ErrorManager();

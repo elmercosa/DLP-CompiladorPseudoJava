@@ -226,13 +226,11 @@
                 class="nombreAtt">name</span><span class="tipoAtt">:expression</span> <span
                 class="nombreAtt">field</span><span class="tipoAtt">:String</span></td>
         <td>
-            structFields[name] != null <br/>
-            structFields.name.tipo == clase <br/>
-            structFields.definicion != null
+            structField.definicion.definicion != null <br/>
+            structField.name.tipo == clase <br/>
         </td>
         <td>
-            structField.definicion = structFields[name] <br/>
-            structField.tipo = structField.definicion.tipo <br/>
+            structField.tipo = structField.definicion.buscarcampo.tipo <br/>
             structField.modificable = true
         </td>
     </tr>
@@ -349,8 +347,8 @@
         <td><span class="nodo">structFieldDefinition</span>:<span class="categoria">def</span>&nbsp;&rarr; <span
                 class="nombreAtt">name</span><span class="tipoAtt">:String</span> <span
                 class="nombreAtt">tipo</span><span class="tipoAtt">:type</span></td>
-        <td>structFields[name] == null</td>
-        <td>structFields[name] = structFieldDefinition</td>
+        <td>structFieldDefinition.definicion == null</td>
+        <td>structFieldDefinition.definicion = structDefinition</td>
     </tr>
     <tr>
         <td><span class="nodo">funcDefinition</span>:<span class="categoria">def</span>&nbsp;&rarr; <span
@@ -424,9 +422,9 @@ Recordatorio de los operadores (para cortar y pegar): &rArr; &hArr; &ne; &empty;
         <td></td>
     </tr>
     <tr>
-        <td>structfield</td>
+        <td>structfieldDefinition</td>
         <td>definicion</td>
-        <td>defStructFieldDefinition</td>
+        <td>defStructDefinition</td>
         <td></td>
         <td></td>
     </tr>
